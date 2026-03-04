@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'admin_storage' => env('ADMIN_STORAGE_URL', 'http://localhost:8001/storage/'),
+
 ];

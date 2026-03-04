@@ -27,4 +27,13 @@ class Marca extends Model
     {
         return $this->belongsTo(Usuario::class, 'created_by');
     }
+
+    public function getGetImagenAttribute()
+    {
+        if (filter_var($this->imagen, FILTER_VALIDATE_URL)) {
+            return $this->imagen;
+        }
+        
+        return config('app.admin_storage') . $this->imagen;
+    }
 }

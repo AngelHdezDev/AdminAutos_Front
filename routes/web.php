@@ -1,14 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('Dashboard.Dashboard');
-});
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 
 Route::get('/autos', function () {
     return view('autos.autos');

@@ -18,64 +18,41 @@
     <div class="marca-dropdown" id="marcaDropdown">
         <div class="marca-dropdown-inner">
             <div class="marca-cols">
-                <div class="marca-col">
-                    <div class="marca-col-header">
-                        <img src="https://logo.clearbit.com/chery.com" alt="" onerror="this.style.display='none'">
-                        <span class="marca-col-name">Chirey</span>
+                @foreach($marcas as $marca)
+                    <div class="marca-col">
+                        <div class="marca-col-header">
+                            {{-- Laravel llamará automáticamente al método getGetImagenAttribute --}}
+                            <img src="{{ $marca->get_imagen }}" alt="{{ $marca->nombre }}"
+                               >
+                            <span class="marca-col-name">{{ $marca->nombre }}</span>
+                        </div>
+                        <ul class="modelo-list">
+                            {{--
+                            En el controlador usamos groupBy('modelo'),
+                            así que iteramos sobre los autos de esta marca
+                            --}}
+                            @foreach($marca->autos as $autoAgrupado)
+                                <li>
+                                    <a
+                                        href="{{ route('dashboard', ['marca' => $marca->nombre, 'modelo' => $autoAgrupado->modelo]) }}">
+                                        {{ $autoAgrupado->modelo }}
+                                    </a>
+                                    <span class="modelo-count">({{ $autoAgrupado->total }})</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <a href="{{ route('dashboard', ['marca' => $marca->nombre]) }}" class="ver-todos-modelo">
+                            Ver todos <i class="bi bi-chevron-right" style="font-size:0.7rem"></i>
+                        </a>
                     </div>
-                    <ul class="modelo-list">
-                        <li><a href="#">Tiggo 8 Pro Max</a><span class="modelo-count">(2)</span></li>
-                        <li><a href="#">ARRIZO 8</a><span class="modelo-count">(4)</span></li>
-                        <li><a href="#">TIGGO 2 PRO</a><span class="modelo-count">(2)</span></li>
-                        <li><a href="#">Tiggo 7 Pro</a><span class="modelo-count">(8)</span></li>
-                        <li><a href="#">Tiggo 8 Pro</a><span class="modelo-count">(3)</span></li>
-                        <li><a href="#">Tiggo 4 Pro</a><span class="modelo-count">(1)</span></li>
-                        <li><a href="#">OMODA OMODA C5</a><span class="modelo-count">(2)</span></li>
-                    </ul>
-                    <a href="#" class="ver-todos-modelo">Ver todos <i class="bi bi-chevron-right"
-                            style="font-size:0.7rem"></i></a>
-                </div>
-                <!-- Resto de columnas igual... -->
-                <div class="marca-col">
-                    <div class="marca-col-header">
-                        <img src="https://logo.clearbit.com/landrover.com" alt="" onerror="this.style.display='none'">
-                        <span class="marca-col-name">Land Rover</span>
-                    </div>
-                    <ul class="modelo-list">
-                        <li><a href="#">Discovery</a><span class="modelo-count">(1)</span></li>
-                        <li><a href="#">Discovery Sport</a><span class="modelo-count">(1)</span></li>
-                    </ul>
-                    <a href="#" class="ver-todos-modelo">Ver todos <i class="bi bi-chevron-right"
-                            style="font-size:0.7rem"></i></a>
-                </div>
-                <div class="marca-col">
-                    <div class="marca-col-header">
-                        <img src="https://logo.clearbit.com/kia.com" alt="" onerror="this.style.display='none'">
-                        <span class="marca-col-name">Kia</span>
-                    </div>
-                    <ul class="modelo-list">
-                        <li><a href="#">Sorento</a><span class="modelo-count">(13)</span></li>
-                        <li><a href="#">Niro</a><span class="modelo-count">(9)</span></li>
-                        <li><a href="#">Soul</a><span class="modelo-count">(11)</span></li>
-                        <li><a href="#">Seltos</a><span class="modelo-count">(26)</span></li>
-                        <li><a href="#">Sportage</a><span class="modelo-count">(17)</span></li>
-                        <li><a href="#">SONET</a><span class="modelo-count">(3)</span></li>
-                        <li><a href="#">EV6</a><span class="modelo-count">(1)</span></li>
-                        <li><a href="#">Forte</a><span class="modelo-count">(9)</span></li>
-                        <li><a href="#">Stinger</a><span class="modelo-count">(1)</span></li>
-                    </ul>
-                    <a href="#" class="ver-todos-modelo">Ver todos <i class="bi bi-chevron-right"
-                            style="font-size:0.7rem"></i></a>
-                </div>
-                <!-- ... más columnas ... -->
+                @endforeach
             </div>
 
+            {{-- Paginación (Opcional: solo si manejas muchas marcas) --}}
             <div class="marca-dropdown-pagination">
                 <button class="mdp-btn" disabled><i class="bi bi-chevron-left"></i></button>
                 <button class="mdp-btn active">1</button>
-                <button class="mdp-btn">2</button>
                 <span class="mdp-dots">...</span>
-                <button class="mdp-btn">8</button>
                 <button class="mdp-btn"><i class="bi bi-chevron-right"></i></button>
             </div>
         </div>
