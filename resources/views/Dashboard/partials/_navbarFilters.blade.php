@@ -25,31 +25,43 @@
     {{-- Dropdown desktop — grid multi-fila, sin paginación, sin slider --}}
     <div class="marca-dropdown" id="marcaDropdown">
         <div class="marca-dropdown-inner">
-            <div class="marca-cols">
-                @foreach($marcas as $marca)
-                    <div class="marca-col">
-                        <div class="marca-col-header">
-                            <img src="{{ config('app.admin_storage') . $marca->imagen }}" alt="{{ $marca->nombre }}"
-                                onerror="this.style.display='none'">
-                            <span class="marca-col-name">{{ $marca->nombre }}</span>
+
+            <button class="nav-arrow prev" id="prevBtn" onclick="moveSlider(-1)">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+
+            <div class="slider-window">
+                <div class="slider-track" id="marcaSlider">
+                    @foreach($marcas as $marca)
+                        <div class="marca-col">
+                            <div class="marca-col-header">
+                                <img src="{{ config('app.admin_storage') . $marca->imagen }}" alt="{{ $marca->nombre }}"
+                                    onerror="this.style.display='none'">
+                                <span class="marca-col-name">{{ $marca->nombre }}</span>
+                            </div>
+                            <ul class="modelo-list">
+                                @foreach($marca->autos->take(5) as $autoAgrupado)
+                                    <li>
+                                        <a
+                                            href="{{ route('dashboard', ['marca' => $marca->nombre, 'modelo' => $autoAgrupado->modelo]) }}">
+                                            {{ $autoAgrupado->modelo }}
+                                        </a>
+                                        <span class="modelo-count">({{ $autoAgrupado->total }})</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <a href="{{ route('dashboard', ['marca' => $marca->nombre]) }}" class="ver-todos-modelo">
+                                Ver todos <i class="bi bi-chevron-right"></i>
+                            </a>
                         </div>
-                        <ul class="modelo-list">
-                            @foreach($marca->autos as $autoAgrupado)
-                                <li>
-                                    <a
-                                        href="{{ route('dashboard', ['marca' => $marca->nombre, 'modelo' => $autoAgrupado->modelo]) }}">
-                                        {{ $autoAgrupado->modelo }}
-                                    </a>
-                                    <span class="modelo-count">({{ $autoAgrupado->total }})</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <a href="{{ route('dashboard', ['marca' => $marca->nombre]) }}" class="ver-todos-modelo">
-                            Ver todos <i class="bi bi-chevron-right" style="font-size:0.7rem"></i>
-                        </a>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
+
+            <button class="nav-arrow next" id="nextBtn" onclick="moveSlider(1)">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+
         </div>
     </div>
 
@@ -790,10 +802,107 @@
             width: 90%;
         }
     }
+
+    .marca-dropdown-inner {
+        position: relative;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 40px 50px;
+        /* Espacio para las flechas laterales */
+        display: flex;
+        align-items: center;
+    }
+
+    .slider-window {
+        width: 100%;
+        overflow: hidden;
+        /* Esto es lo que corta las marcas sobrantes */
+    }
+
+    .slider-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        /* El efecto de deslizamiento */
+        width: 100%;
+    }
+
+    .marca-col {
+        flex: 0 0 16.6666%;
+        /* Fuerza a que cada columna sea 1/6 del ancho */
+        padding: 0 15px;
+        border-right: 1px solid var(--dalton-border);
+        min-width: 16.6666%;
+    }
+
+    /* Flechas estilo Dalton */
+    .nav-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.2s;
+    }
+
+    .nav-arrow:hover {
+        background: var(--dalton-bg);
+        color: var(--dalton-red);
+        border-color: var(--dalton-red);
+    }
+
+    .nav-arrow.prev {
+        left: 10px;
+    }
+
+    .nav-arrow.next {
+        right: 10px;
+    }
+
+    .nav-arrow:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
 </style>
 
 
 <script>
+    let currentStep = 0;
+
+    function moveSlider(direction) {
+        const track = document.getElementById('marcaSlider');
+        const totalMarcas = track.children.length;
+
+        // Calculamos cuántas páginas de 6 marcas hay
+        const totalPages = Math.ceil(totalMarcas / 6);
+
+        currentStep += direction;
+
+        // Validar límites
+        if (currentStep < 0) currentStep = 0;
+        if (currentStep >= totalPages) currentStep = totalPages - 1;
+
+        // Desplazamiento: cada paso mueve el 100% del contenedor visible
+        const offset = currentStep * 100;
+        track.style.transform = `translateX(-${offset}%)`;
+
+        // Actualizar estado de botones
+        document.getElementById('prevBtn').disabled = (currentStep === 0);
+        document.getElementById('nextBtn').disabled = (currentStep === totalPages - 1);
+    }
+
+    // Inicializar botones al cargar
+    document.addEventListener('DOMContentLoaded', () => {
+        const prevBtn = document.getElementById('prevBtn');
+        if (prevBtn) prevBtn.disabled = true;
+    });
     /* =============================================
        DROPDOWN DESKTOP
        ============================================= */
