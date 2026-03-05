@@ -9,11 +9,6 @@
 @section('content')
     <!-- ===== TOP NAVBAR ===== -->
     <nav class="navbar-top">
-        <button class="btn-menu-mobile" onclick="toggleMobileMenu()"
-            style="background:none; border:none; color:white; font-size:1.5rem; margin-right:10px; display:none;">
-            <i class="bi bi-list"></i>
-        </button>
-
         <a href="#" class="logo">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                 <path d="M7 21 C7 13 13 5 21 5" stroke="#e8001c" stroke-width="3" stroke-linecap="round" />
@@ -23,7 +18,6 @@
             <span
                 style="background:#e8001c;color:white;font-size:0.55rem;font-weight:800;border-radius:3px;padding:1px 4px;margin-left:2px;">.com</span>
         </a>
-
         <div class="navbar-top-actions">
             <button class="btn-vender">Vender mi auto</button>
             <button class="btn-comprar">Comprar un auto</button>
@@ -32,8 +26,7 @@
         </div>
     </nav>
 
-
-    @include('Dashboard.Navbar')
+   @include('Dashboard.Navbar')
     <!-- ===== HERO ===== -->
     <div class="hero">
         <div class="hero-bg">

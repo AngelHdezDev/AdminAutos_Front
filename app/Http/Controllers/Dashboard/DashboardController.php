@@ -13,19 +13,23 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        // 1. PAGINACIÓN DE MARCAS: 6 marcas por página para el dropdown
+        // Usamos pageName para que no choque con la paginación de autos si la usaras después
         $marcas = Marca::active()
             ->with([
                 'autos' => function ($query) {
                     $query->active()
                         ->select('id_marca', 'modelo')
                         ->selectRaw('count(*) as total')
-                        ->groupBy('id_marca', 'modelo');
+                        ->groupBy('id_marca', 'modelo')
+                        ->orderBy('modelo', 'asc');
                 }
             ])
             ->has('autos')
-            ->take(6)
+            ->orderBy('nombre', 'asc')
             ->get();
-
+       
+        
         $query = Auto::active()->with(['marca', 'thumbnail']);
 
         if ($request->filled('marca')) {
@@ -38,6 +42,7 @@ class DashboardController extends Controller
             $query->where('modelo', $request->modelo);
         }
 
+        // Aquí traemos todos los autos filtrados o puedes paginarlos también
         $autos = $query->latest('id_auto')->get();
 
         return view('Dashboard.Dashboard', compact('marcas', 'autos'));
