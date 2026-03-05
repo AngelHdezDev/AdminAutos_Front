@@ -9,9 +9,9 @@
 @section('content')
     <!-- ===== TOP NAVBAR ===== -->
     @include('dashboard.partials._navbarTop')
+    <!-- ===== NAVBAR Filter ===== -->
     @include('Dashboard.partials._navbarFilters')
 
-    @include('Dashboard.Navbar')
     <!-- ===== HERO ===== -->
     @include('Dashboard.partials._hero')
 

@@ -1,0 +1,29 @@
+/* =============================================
+   _brands.css
+   Depende de: _base.css
+   ============================================= */
+.catalogo-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--dalton-border);
+}
+
+.catalogo-item a {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--dalton-blue);
+    text-decoration: none;
+}
+
+.catalogo-item a:hover {
+    text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .catalogo-item {
+        padding: 8px 0;
+    }
+}
