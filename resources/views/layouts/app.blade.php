@@ -29,6 +29,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @stack('scripts') {{-- Para JS específico (como el que hicimos para el modal) --}}
+    <script src="{{ asset('js/navbarFilters.js') }}"></script>
 </body>
 
 </html>
