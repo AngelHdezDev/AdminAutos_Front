@@ -10,7 +10,7 @@
     <!-- ===== TOP NAVBAR ===== -->
     @include('dashboard.partials._navbarTop')
     <!-- ===== NAVBAR Filter ===== -->
-    @include('Dashboard.partials._navbarFilters')
+    <x-dashboard.navbar-filters />
 
     <!-- ===== HERO ===== -->
     @include('Dashboard.partials._hero')
