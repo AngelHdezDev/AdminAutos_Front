@@ -37,7 +37,7 @@
     <div class="section-divider"></div>
 
     <!-- ===== CATÁLOGO DE MARCAS ===== -->
-    @include('Dashboard.partials._brands')
+    <x-dashboard.brand-catalog />
     <!-- ===== FOOTER ===== -->
     @include('Dashboard.partials._footer')
     <!-- ===== COOKIE BANNER ===== -->
