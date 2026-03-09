@@ -24,8 +24,7 @@
     <div class="section-divider"></div>
 
     <!-- ===== TENEMOS TU MARCA FAVORITA ===== -->
-    @include('Dashboard.partials._favoriteMarc')
-
+    <x-dashboard.favorite-brands />
     <!-- ===== HERRAMIENTAS DE COMPRA ===== -->
     @include('Dashboard.partials._herramientasSection')
     <!-- ===== REFERRAL BANNER ===== -->
