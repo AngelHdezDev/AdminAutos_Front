@@ -46,3 +46,17 @@ document.addEventListener('click', e => {
     if (wrap && !wrap.contains(e.target)) document.getElementById('sortDropdown').classList.remove('open');
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileSidebar(); });
+
+function applySort(value) {
+    // 1. Obtenemos la URL actual y sus parámetros
+    let url = new URL(window.location.href);
+
+    // 2. Actualizamos o añadimos el parámetro 'sort'
+    url.searchParams.set('sort', value);
+
+    // 3. Reiniciamos a la página 1 para evitar errores si estábamos en la 5
+    url.searchParams.set('page', '1');
+
+    // 4. Redireccionamos
+    window.location.href = url.toString();
+}

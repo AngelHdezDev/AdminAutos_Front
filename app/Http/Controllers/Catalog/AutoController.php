@@ -19,7 +19,6 @@ class AutoController extends Controller
             // 1. FILTRO DE BÚSQUEDA (Texto libre)
             $query->when($request->filled('search'), function ($q) use ($request) {
                 $search = $request->search;
-                // Usamos un sub-where para que los OR no ignoren los otros filtros
                 return $q->where(function ($sub) use ($search) {
                     $sub->where('modelo', 'LIKE', "%{$search}%")
                         ->orWhere('color', 'LIKE', "%{$search}%")
@@ -30,25 +29,42 @@ class AutoController extends Controller
                 });
             });
 
-            // 2. FILTRO: Nuevos (Basado en el año actual)
+            // 2. FILTROS DE TIPO DE OFERTA
             $query->when($request->filled('nuevo'), function ($q) {
                 return $q->where('year', '>=', 2026);
             });
 
-            // 3. FILTRO: Seminuevos
             $query->when($request->filled('seminuevo'), function ($q) {
                 return $q->where('year', '<', 2026);
             });
 
-            // 4. FILTRO: Consignación
             $query->when($request->filled('consignacion'), function ($q) {
                 return $q->where('consignacion', 1);
             });
 
-            // 5. EJECUCIÓN Y PAGINACIÓN
-            $autos = $query->latest('id_auto')->paginate(12);
+            // 3. LÓGICA DE ORDENAMIENTO (Nuevo)
+            // Usamos un switch para decidir cómo ordenar según el parámetro 'sort'
+            switch ($request->sort) {
+                case 'price_asc':
+                    $query->orderBy('precio', 'asc');
+                    break;
+                case 'price_desc':
+                    $query->orderBy('precio', 'desc');
+                    break;
+                case 'latest':
+                    $query->latest('id_auto');
+                    break;
+                default:
+                    // Orden por defecto: los más recientes primero
+                    $query->latest('id_auto');
+                    break;
+            }
 
-            // 6. PERSISTENCIA DE FILTROS EN LA PAGINACIÓN
+            // 4. EJECUCIÓN Y PAGINACIÓN
+            // Ya no ponemos latest() aquí porque ya lo manejamos en el switch de arriba
+            $autos = $query->paginate(12);
+
+            // 5. PERSISTENCIA DE FILTROS EN LA PAGINACIÓN
             $autos->appends($request->all());
 
             return view('autos.autos', compact('autos'));

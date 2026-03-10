@@ -4,6 +4,7 @@
         <button class="btn-close-sidebar" onclick="closeMobileSidebar()"><i class="bi bi-x-lg"></i></button>
     </div>
     <form action="{{ route('autos.index') }}" method="GET" id="filterForm">
+        <input type="hidden" name="sort" id="hiddenSort" value="{{ request('sort', 'latest') }}">
 
         @if(request('search'))
             <input type="hidden" name="search" value="{{ request('search') }}">

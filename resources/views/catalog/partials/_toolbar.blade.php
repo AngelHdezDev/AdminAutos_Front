@@ -6,14 +6,23 @@
         <span>Ordenar por:</span>
         <div class="sort-dropdown-wrap">
             <button class="sort-btn" onclick="toggleSort()">
-                🔥 Mayor Descue... <i class="bi bi-chevron-down" style="font-size:0.75rem"></i>
+                @if(request('sort') == 'price_asc') Menor precio
+                @elseif(request('sort') == 'price_desc') Mayor precio
+                @else Más nuevos
+                @endif
+                <i class="bi bi-chevron-down" style="font-size:0.75rem"></i>
             </button>
             <div class="sort-dropdown" id="sortDropdown">
                 <div class="sort-dropdown-label">Ordenar por</div>
-                <div class="sort-option active" onclick="selectSort(this)">🔥 Mayor Descuento 🔥</div>
-                <div class="sort-option" onclick="selectSort(this)">Menor precio</div>
-                <div class="sort-option" onclick="selectSort(this)">Mayor precio</div>
-                <div class="sort-option" onclick="selectSort(this)">Más nuevos</div>
+
+                <div class="sort-option {{ request('sort') == 'price_asc' ? 'active' : '' }}"
+                    onclick="applySort('price_asc')">Menor precio</div>
+
+                <div class="sort-option {{ request('sort') == 'price_desc' ? 'active' : '' }}"
+                    onclick="applySort('price_desc')">Mayor precio</div>
+
+                <div class="sort-option {{ request('sort') == 'latest' || !request('sort') ? 'active' : '' }}"
+                    onclick="applySort('latest')">Más nuevos</div>
             </div>
         </div>
     </div>
