@@ -18,8 +18,17 @@
 </nav>
 
 <div class="search-bar-wrap">
-    <div class="search-bar">
-        <input type="text" placeholder="Buscar por Marca / Modelo / Año / Color">
-        <button class="btn-buscar"><span>Buscar</span> <i class="bi bi-search"></i></button>
-    </div>
+    <form action="{{ route('autos.index') }}" method="GET" class="search-bar">
+        {{-- Truco Senior: Si hay filtros activos en el sidebar, los mantenemos aquí como campos ocultos --}}
+        @if(request('nuevo')) <input type="hidden" name="nuevo" value="1"> @endif
+        @if(request('seminuevo')) <input type="hidden" name="seminuevo" value="1"> @endif
+        @if(request('consignacion')) <input type="hidden" name="consignacion" value="1"> @endif
+
+        <input type="text" name="search" value="{{ request('search') }}"
+            placeholder="Buscar por Marca / Modelo / Año / Color">
+
+        <button type="submit" class="btn-buscar">
+            <span>Buscar</span> <i class="bi bi-search"></i>
+        </button>
+    </form>
 </div>

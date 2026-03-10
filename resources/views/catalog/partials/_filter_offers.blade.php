@@ -19,6 +19,7 @@
             <input type="checkbox" name="consignacion" value="1" onchange="this.form.submit()" 
                 {{ request('consignacion') ? 'checked' : '' }}> En consignación
         </label>
+    </form>
 
         <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
             <span><i class="bi bi-car-front filter-icon"></i> Marcas y modelos</span><i class="bi bi-chevron-down"></i>
@@ -38,5 +39,5 @@
         <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
             <span><i class="bi bi-sliders filter-icon"></i> Filtros avanzados</span><i class="bi bi-chevron-down"></i>
         </button>
-    </form>
+    
 </aside>
