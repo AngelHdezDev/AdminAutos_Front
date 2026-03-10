@@ -46,7 +46,7 @@
 
                 <div class="car-location">
                     <i class="bi bi-geo-alt"></i>
-                    <span>Guadalajara, Jal.</span> {{-- Aquí puedes mapear una relación de sucursales si la tienes --}}
+                    <span>No disponible</span> {{-- Aquí puedes mapear una relación de sucursales si la tienes --}}
                 </div>
             </div>
         </div>
