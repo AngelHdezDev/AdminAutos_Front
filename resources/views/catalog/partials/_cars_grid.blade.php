@@ -6,11 +6,15 @@
     @forelse($autos as $auto)
         <div class="car-card">
             <div class="car-card-img-wrap">
-                {{-- Prioriza el thumbnail, si no hay, usa una por defecto --}}
-                <img src="{{ $auto->thumbnail ? asset('storage/' . $auto->thumbnail->ruta) : asset('img/default-car.jpg') }}" 
-                     alt="{{ $auto->marca->nombre }} {{ $auto->modelo }}" 
-                     loading="lazy">
-                
+                @if($auto->thumbnail)
+                    <img src="{{ env('ADMIN_STORAGE_URL') . $auto->thumbnail->imagen }}" alt="{{ $auto->modelo }}">
+                @else
+                    <div class="car-img-placeholder">
+                        <i class="bi bi-image"></i>
+                        <span>Imagen no disponible</span>
+                    </div>
+                @endif
+
                 <div class="car-badges">
                     @if($auto->year == 2026)
                         <span class="badge-nuevo"><i class="bi bi-plus"></i> Nuevo 0km</span>
@@ -25,12 +29,14 @@
                 <div class="car-card-header">
                     <div class="car-card-title">{{ $auto->marca->nombre }} {{ $auto->modelo }} {{ $auto->year }}</div>
                     @if($auto->marca->logo)
-                        <img src="{{ asset('storage/' . $auto->marca->logo) }}" class="brand-logo" alt="Logo {{ $auto->marca->nombre }}">
+                        <img src="{{ asset('storage/' . $auto->marca->logo) }}" class="brand-logo"
+                            alt="Logo {{ $auto->marca->nombre }}">
                     @endif
                 </div>
 
                 <div class="car-card-meta">
-                    {{ $auto->tipo }} | {{ $auto->ocultar_kilometraje ? 'Kilometraje no disponible' : number_format($auto->kilometraje) . ' Km' }}
+                    {{ $auto->tipo }} |
+                    {{ $auto->ocultar_kilometraje ? 'Kilometraje no disponible' : number_format($auto->kilometraje) . ' Km' }}
                 </div>
 
                 <div class="car-price">
