@@ -13,10 +13,9 @@ class AutoController extends Controller
     public function index(Request $request)
     {
         try {
-            // Iniciamos la consulta con las relaciones necesarias
             $query = Auto::active()->with(['marca', 'thumbnail']);
 
-            // 1. FILTRO DE BÚSQUEDA (Texto libre)
+            // 1. FILTRO DE BÚSQUEDA
             $query->when($request->filled('search'), function ($q) use ($request) {
                 $search = $request->search;
                 return $q->where(function ($sub) use ($search) {
@@ -42,8 +41,13 @@ class AutoController extends Controller
                 return $q->where('consignacion', 1);
             });
 
-            // 3. LÓGICA DE ORDENAMIENTO (Nuevo)
-            // Usamos un switch para decidir cómo ordenar según el parámetro 'sort'
+            // 3. NUEVO: FILTRO POR AÑOS (Pills multiselección)
+            // Usamos whereIn porque 'years' es un array que viene del formulario
+            $query->when($request->filled('years'), function ($q) use ($request) {
+                return $q->whereIn('year', (array) $request->years);
+            });
+
+            // 4. LÓGICA DE ORDENAMIENTO
             switch ($request->sort) {
                 case 'price_asc':
                     $query->orderBy('precio', 'asc');
@@ -52,26 +56,22 @@ class AutoController extends Controller
                     $query->orderBy('precio', 'desc');
                     break;
                 case 'latest':
-                    $query->latest('id_auto');
-                    break;
                 default:
-                    // Orden por defecto: los más recientes primero
                     $query->latest('id_auto');
                     break;
             }
 
-            // 4. EJECUCIÓN Y PAGINACIÓN
-            // Ya no ponemos latest() aquí porque ya lo manejamos en el switch de arriba
+            // 5. EJECUCIÓN Y PAGINACIÓN
             $autos = $query->paginate(12);
 
-            // 5. PERSISTENCIA DE FILTROS EN LA PAGINACIÓN
+            // 6. PERSISTENCIA
             $autos->appends($request->all());
 
             return view('autos.autos', compact('autos'));
 
         } catch (Exception $e) {
             Log::error("Error en el catálogo: " . $e->getMessage());
-            return redirect()->back()->with('error', 'Ocurrió un error al cargar los vehículos.');
+            return redirect()->back()->with('error', 'Ocurrió un error al filtrar.');
         }
     }
 }

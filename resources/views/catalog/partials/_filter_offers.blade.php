@@ -20,7 +20,7 @@
             <input type="checkbox" name="consignacion" value="1" onchange="this.form.submit()" 
                 {{ request('consignacion') ? 'checked' : '' }}> En consignación
         </label>
-    </form>
+    
 
         <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
             <span><i class="bi bi-car-front filter-icon"></i> Marcas y modelos</span><i class="bi bi-chevron-down"></i>
@@ -28,9 +28,14 @@
         <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
             <span><i class="bi bi-currency-dollar filter-icon"></i> Precio</span><i class="bi bi-chevron-down"></i>
         </button>
-        <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
-            <span><i class="bi bi-calendar3 filter-icon"></i> Año</span><i class="bi bi-chevron-down"></i>
-        </button>
+        <div class="accordion-item-custom">
+            <button type="button" class="filter-accordion-btn" onclick="toggleAccordion(this)">
+                <span><i class="bi bi-calendar3 filter-icon"></i> Año</span><i class="bi bi-chevron-down"></i>
+            </button>
+            <div class="filter-accordion-content">
+                 @include('catalog.partials._accordion_years')
+            </div>
+        </div>
         <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
             <span><i class="bi bi-geo-alt filter-icon"></i> Ubicación</span><i class="bi bi-chevron-down"></i>
         </button>
@@ -40,5 +45,6 @@
         <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
             <span><i class="bi bi-sliders filter-icon"></i> Filtros avanzados</span><i class="bi bi-chevron-down"></i>
         </button>
+    </form>
     
 </aside>

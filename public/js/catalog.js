@@ -32,7 +32,24 @@ function closeMobileSidebar() {
 
 window.addEventListener('resize', () => { if (!isMobile()) { closeMobileSidebar(); } });
 
-function toggleAccordion(btn) { btn.classList.toggle('open'); }
+function toggleAccordion(btn) {
+    // 1. Efecto visual en el botón (flechita, color, etc.)
+    btn.classList.toggle('open');
+
+    // 2. Control del contenido
+    var content = btn.nextElementSibling;
+
+    // Si el contenido existe y es el div de filtros
+    if (content && content.classList.contains('filter-accordion-content')) {
+        if (content.style.maxHeight) {
+            // Si tiene altura, lo cerramos
+            content.style.maxHeight = null;
+        } else {
+            // Si no tiene altura, le damos la necesaria para que baje
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    }
+}
 
 function toggleSort() { document.getElementById('sortDropdown').classList.toggle('open'); }
 function selectSort(el) {
