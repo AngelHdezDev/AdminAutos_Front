@@ -4,7 +4,7 @@
     <link href="{{ asset('css/catalog.css') }}" rel="stylesheet">
 @endpush
 
-<body>
+@section('content')
 
     @include('catalog.partials._search_bar')
     @include('catalog.partials._brands')
@@ -32,8 +32,7 @@
             </div>
         </main>
     </div>
-</body>
-
+@endsection
 @push('scripts')
     <script src="{{ asset('js/catalog.js') }}"></script>
 @endpush
