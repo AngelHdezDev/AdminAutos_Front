@@ -25,9 +25,14 @@
         <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
             <span><i class="bi bi-car-front filter-icon"></i> Marcas y modelos</span><i class="bi bi-chevron-down"></i>
         </button>
-        <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
-            <span><i class="bi bi-currency-dollar filter-icon"></i> Precio</span><i class="bi bi-chevron-down"></i>
-        </button>
+        <div class="accordion-item-custom">
+            <button type="button" class="filter-accordion-btn" onclick="toggleAccordion(this)">
+                <span><i class="bi bi-currency-dollar filter-icon"></i> Precio</span><i class="bi bi-chevron-down"></i>
+            </button>
+            <div class="filter-accordion-content">
+                 @include('catalog.partials.filters._accordion_price')
+            </div>
+        </div>    
         <div class="accordion-item-custom">
             <button type="button" class="filter-accordion-btn" onclick="toggleAccordion(this)">
                 <span><i class="bi bi-calendar3 filter-icon"></i> Año</span><i class="bi bi-chevron-down"></i>
