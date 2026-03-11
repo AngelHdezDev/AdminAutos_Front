@@ -11,11 +11,8 @@
             @php $isSelected = in_array($year, $selectedYears); @endphp
 
             <label class="year-pill {{ $isSelected ? 'active' : '' }}">
-                {{-- El checkbox real que el form reconoce --}}
                 <input type="checkbox" name="years[]" value="{{ $year }}" {{ $isSelected ? 'checked' : '' }}
                     onchange="this.form.submit()" style="display: none;">
-
-                {{-- Lo que el usuario ve --}}
                 <span>{{ $year }}</span>
             </label>
         @endforeach
