@@ -7,15 +7,28 @@ use App\Models\Auto;
 use Illuminate\Support\Facades\Log;
 use Exception;
 use Illuminate\Http\Request;
+use App\Models\Marca;
 
 class AutoController extends Controller
 {
+
     public function index(Request $request)
     {
+        // 1. OBTENER LAS MARCAS
+        // Quitamos ->with('modelos') porque esa relación no existe en tu modelo Marca
+        $marcas = Marca::active()
+            ->withCount([
+                'autos' => function ($query) {
+                    $query->where('active', 1); // Solo cuenta los activos
+                }
+            ])
+            ->orderBy('nombre', 'asc')
+            ->get();
+
         try {
             $query = Auto::active()->with(['marca', 'thumbnail']);
 
-            // 1. BÚSQUEDA (Texto libre)
+            // 2. BÚSQUEDA (Texto libre)
             $query->when($request->filled('search'), function ($q) use ($request) {
                 $search = $request->search;
                 return $q->where(function ($sub) use ($search) {
@@ -28,7 +41,7 @@ class AutoController extends Controller
                 });
             });
 
-            // 2. TIPO DE OFERTA
+            // 3. TIPO DE OFERTA
             $query->when($request->filled('nuevo'), function ($q) {
                 return $q->where('year', '>=', 2026);
             });
@@ -37,12 +50,12 @@ class AutoController extends Controller
                 return $q->where('consignacion', 1);
             });
 
-            // 3. AÑOS (Pills multiselección)
+            // 4. AÑOS (Pills multiselección)
             $query->when($request->filled('years'), function ($q) use ($request) {
                 return $q->whereIn('year', (array) $request->years);
             });
 
-            // 4. KILOMETRAJE (Slider Dual)
+            // 5. KILOMETRAJE (Slider Dual)
             if ($request->filled('km_min') || $request->filled('km_max')) {
                 $query->whereBetween('kilometraje', [
                     $request->input('km_min', 0),
@@ -50,7 +63,7 @@ class AutoController extends Controller
                 ]);
             }
 
-            // 5. PRECIO (Slider Dual)
+            // 6. PRECIO (Slider Dual)
             if ($request->filled('price_min') || $request->filled('price_max')) {
                 $query->whereBetween('precio', [
                     $request->input('price_min', 0),
@@ -58,7 +71,18 @@ class AutoController extends Controller
                 ]);
             }
 
-            // 6. ORDENAMIENTO
+            // 7. FILTRO POR MARCAS (Usando id_marca)
+            $query->when($request->filled('marcas'), function ($q) use ($request) {
+                return $q->whereIn('id_marca', (array) $request->marcas);
+            });
+
+            // 8. FILTRO POR MODELOS 
+            // Cambiado: Ahora filtra por la columna 'modelo' (string) en la tabla autos
+            $query->when($request->filled('modelos'), function ($q) use ($request) {
+                return $q->whereIn('modelo', (array) $request->modelos);
+            });
+
+            // 9. ORDENAMIENTO
             switch ($request->sort) {
                 case 'price_asc':
                     $query->orderBy('precio', 'asc');
@@ -71,15 +95,22 @@ class AutoController extends Controller
                     break;
             }
 
-            // 7. EJECUCIÓN Y PERSISTENCIA
+            // 10. EJECUCIÓN Y PAGINACIÓN
             $autos = $query->paginate(12);
-            $autos->appends($request->all()); // Crucial para no perder filtros al paginar
+            $autos->appends($request->all());
 
-            return view('autos.autos', compact('autos'));
+            return view('autos.autos', compact('autos', 'marcas'));
 
-        } catch (Exception $e) {
-            Log::error("Error en el catálogo: " . $e->getMessage());
-            return redirect()->back()->with('error', 'Error al cargar los vehículos.');
+        } catch (\Exception $e) {
+            // Log del error para debug
+            \Log::error("Error en el catálogo: " . $e->getMessage());
+
+            // Retornamos la vista con un mensaje de error en lugar de redirigir para evitar bucles
+            return view('autos.autos', [
+                'autos' => collect(),
+                'marcas' => $marcas,
+                'errorMessage' => 'Lo sentimos, hubo un problema al cargar los vehículos.'
+            ]);
         }
     }
 }

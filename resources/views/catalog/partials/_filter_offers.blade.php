@@ -21,10 +21,14 @@
                 {{ request('consignacion') ? 'checked' : '' }}> En consignación
         </label>
     
-
-        <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
-            <span><i class="bi bi-car-front filter-icon"></i> Marcas y modelos</span><i class="bi bi-chevron-down"></i>
-        </button>
+        <div class="accordion-item-custom">
+            <button type="button" class="filter-accordion-btn" onclick="toggleAccordion(this)">
+                <span><i class="bi bi-car-front filter-icon"></i> Marcas y modelos</span><i class="bi bi-chevron-down"></i>
+            </button>
+            <div class="filter-accordion-content">
+                 @include('catalog.partials.filters._accordion_brands_models')
+            </div>
+        </div>
         <div class="accordion-item-custom">
             <button type="button" class="filter-accordion-btn" onclick="toggleAccordion(this)">
                 <span><i class="bi bi-currency-dollar filter-icon"></i> Precio</span><i class="bi bi-chevron-down"></i>
