@@ -17,7 +17,9 @@
 
         <main class="catalog-main">
             @include('catalog.partials._toolbar')
-            @include('catalog.partials._cars_grid')
+            <div id="carsGridContainer">
+                @include('catalog.partials._cars_grid')
+            </div>
         </main>
     </div>
 @endsection

@@ -56,18 +56,50 @@ function filterMarcas(query) {
 
 // Aplica los filtros seleccionados (recarga con los parámetros)
 function applyFilters() {
-    const marcas = Array.from(document.querySelectorAll('.marca-checkbox:checked')).map(c => c.value);
-    const url = new URL(window.location.href);
-    url.searchParams.delete('marcas[]');
-    marcas.forEach(m => url.searchParams.append('marcas[]', m));
-    url.searchParams.delete('page');
-    window.location.href = url.toString();
+    // 1. Obtenemos los datos del formulario (IDs de marcas, rangos de precio, etc.)
+    const form = document.getElementById('filterForm'); 
+    const formData = new FormData(form);
+    const queryString = new URLSearchParams(formData).toString();
+
+    // 2. Actualizamos la URL en el navegador para que el usuario pueda compartirla
+    window.history.pushState({}, '', `${window.location.pathname}?${queryString}`);
+
+    // 3. Pedimos los nuevos resultados al servidor vía AJAX
+    fetch(`${window.location.pathname}?${queryString}`, {
+        headers: {
+            "X-Requested-With": "XMLHttpRequest" // Vital para que Laravel detecte ->ajax()
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        // 4. Reemplazamos el contenido del contenedor por el nuevo grid
+        document.getElementById('carsGridContainer').innerHTML = html;
+        
+        // OPCIONAL: Scroll suave hacia arriba de los resultados
+        document.getElementById('carsGridContainer').scrollIntoView({ behavior: 'smooth' });
+    })
+    .catch(error => console.error('Error cargando filtros:', error));
 }
 
 // Al cargar la página, aseguramos que todas las marcas sean visibles
 document.addEventListener('DOMContentLoaded', function() {
     const items = document.querySelectorAll('#marcaList .marca-item');
     items.forEach(item => item.style.display = '');
+});
+
+document.addEventListener('click', function (e) {
+    // Si el clic fue en un link de paginación dentro de nuestro contenedor
+    if (e.target.closest('#carsGridContainer .pagination a')) {
+        e.preventDefault(); // Detenemos la recarga de página
+        const url = e.target.closest('a').href;
+        
+        fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('carsGridContainer').innerHTML = html;
+                window.scrollTo(0, 0);
+            });
+    }
 });
 </script>
 

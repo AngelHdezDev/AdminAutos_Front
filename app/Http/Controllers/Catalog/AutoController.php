@@ -23,6 +23,7 @@ class AutoController extends Controller
                 }
             ])
             ->orderBy('nombre', 'asc')
+            ->has('autos')
             ->get();
 
         try {
@@ -99,9 +100,13 @@ class AutoController extends Controller
             $autos = $query->paginate(12);
             $autos->appends($request->all());
 
+            if ($request->ajax()) {
+                return view('catalog.partials._cars_grid', compact('autos'))->render();
+            }
+
             return view('autos.autos', compact('autos', 'marcas'));
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Log del error para debug
             \Log::error("Error en el catálogo: " . $e->getMessage());
 
