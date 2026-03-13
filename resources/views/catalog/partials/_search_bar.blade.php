@@ -18,17 +18,14 @@
 </nav>
 
 <div class="search-bar-wrap">
-    <form action="{{ route('autos.index') }}" method="GET" class="search-bar">
-        {{-- Truco Senior: Si hay filtros activos en el sidebar, los mantenemos aquí como campos ocultos --}}
-        @if(request('nuevo')) <input type="hidden" name="nuevo" value="1"> @endif
-        @if(request('seminuevo')) <input type="hidden" name="seminuevo" value="1"> @endif
-        @if(request('consignacion')) <input type="hidden" name="consignacion" value="1"> @endif
+    {{-- Cambiamos el form para que no recargue y ejecute applyFilters al dar Enter --}}
+    <div class="search-bar">
+        <input type="text" id="mainSearchInput" name="search" value="{{ request('search') }}"
+               placeholder="Buscar por Marca / Modelo / Año / Color"
+               onkeyup="if(event.key === 'Enter') applyFilters()">
 
-        <input type="text" name="search" value="{{ request('search') }}"
-            placeholder="Buscar por Marca / Modelo / Año / Color">
-
-        <button type="submit" class="btn-buscar">
+        <button type="button" class="btn-buscar" onclick="applyFilters()">
             <span>Buscar</span> <i class="bi bi-search"></i>
         </button>
-    </form>
+    </div>
 </div>
