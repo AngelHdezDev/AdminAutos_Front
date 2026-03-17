@@ -119,5 +119,5 @@
 </script>
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/catalog/partials/_accordion_price.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/catalog/partials/filters/_accordion_price.css') }}">
 @endpush

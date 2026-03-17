@@ -20,5 +20,5 @@
 </div>
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/catalog/partials/_accordion_years.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/catalog/partials/filters/_accordion_years.css') }}">
 @endpush

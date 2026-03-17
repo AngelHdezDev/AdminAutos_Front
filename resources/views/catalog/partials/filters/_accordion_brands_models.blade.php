@@ -116,5 +116,5 @@ document.addEventListener('click', function (e) {
 </script>
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/catalog/partials/_accordion_brands_models.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/catalog/partials/filters/_accordion_brands_models.css') }}">
 @endpush
