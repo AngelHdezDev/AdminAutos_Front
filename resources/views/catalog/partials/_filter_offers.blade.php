@@ -42,7 +42,7 @@
                 <span><i class="bi bi-calendar3 filter-icon"></i> Año</span><i class="bi bi-chevron-down"></i>
             </button>
             <div class="filter-accordion-content">
-                 @include('catalog.partials._accordion_years')
+                 @include('catalog.partials.filters._accordion_years')
             </div>
         </div>
         <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
