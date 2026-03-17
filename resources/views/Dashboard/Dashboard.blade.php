@@ -48,3 +48,7 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/navbarFilters.js') }}"></script>
+@endpush

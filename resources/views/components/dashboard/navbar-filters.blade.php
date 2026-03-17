@@ -1,3 +1,4 @@
+
 {{-- ===== NAVBAR FILTERS ===== --}}
 <nav class="navbar-filters">
 
@@ -75,3 +76,7 @@
 
 {{-- Panel móvil + backdrops --}}
 @include('Dashboard.partials._navbarMobile')
+
+
+
+
