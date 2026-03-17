@@ -45,9 +45,9 @@
                  @include('catalog.partials.filters._accordion_years')
             </div>
         </div>
-        <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
+        <!-- <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
             <span><i class="bi bi-geo-alt filter-icon"></i> Ubicación</span><i class="bi bi-chevron-down"></i>
-        </button>
+        </button> -->
         <div class="accordion-item-custom">
             <button type="button" class="filter-accordion-btn" onclick="toggleAccordion(this)">
                 <span><i class="bi bi-speedometer2 filter-icon"></i> Kilometraje</span><i class="bi bi-chevron-down"></i>
@@ -56,9 +56,9 @@
                 @include('catalog.partials.filters._accordion_km')
             </div>
         </div>
-        <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
+        <!-- <button class="filter-accordion-btn" onclick="toggleAccordion(this)">
             <span><i class="bi bi-sliders filter-icon"></i> Filtros avanzados</span><i class="bi bi-chevron-down"></i>
-        </button>
+        </button> -->
     </form>
     
 </aside>

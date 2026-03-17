@@ -100,5 +100,5 @@
 </script>
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/catalog/partials/_accordion_km.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/catalog/partials/filters/_accordion_km.css') }}">
 @endpush
