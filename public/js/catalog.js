@@ -149,10 +149,20 @@ function renderActiveFilters() {
         list.appendChild(badge);
     }
 
+    // BADGE PARA EL BUSCADOR
+    const mainSearch = document.getElementById('mainSearchInput');
+    if (mainSearch && mainSearch.value.trim() !== '') {
+        const badge = document.createElement('div');
+        badge.className = 'filter-badge badge-search'; // Puedes darle un color distinto si quieres
+        badge.innerHTML = `Búsqueda: "${mainSearch.value}" <i class="bi bi-x" onclick="clearSearchInput()"></i>`;
+        list.appendChild(badge);
+    }
+
     // Mostrar/Ocultar botón de Reiniciar Todo
     const priceChanged = (pMin?.value > 50000 || pMax?.value < 3500000);
+    const searchHasValue = mainSearch && mainSearch.value.trim() !== '';
     const kmChanged = (kMin?.value > 0 || kMax?.value < 500000);
-    if (resetBtn) resetBtn.style.display = (checkboxes.length > 0 || priceChanged || kmChanged) ? 'inline-block' : 'none';
+    if (resetBtn) resetBtn.style.display = (checkboxes.length > 0 || priceChanged || kmChanged || searchHasValue) ? 'inline-block' : 'none';
 
     
 }
@@ -211,6 +221,14 @@ function resetKmSlider() {
     }
 }
 
+function clearSearchInput() {
+    const mainSearch = document.getElementById('mainSearchInput');
+    if (mainSearch) {
+        mainSearch.value = '';
+        applyFilters(); // Refresca los resultados por AJAX
+    }
+}
+
 // Actualiza tu clearAllFilters para que también limpie los KM
 function clearAllFilters() {
     const form = document.getElementById('filterForm');
@@ -221,6 +239,11 @@ function clearAllFilters() {
 
     if (typeof syncBarWithSidebar === 'function') {
         syncBarWithSidebar();
+    }
+
+    const mainSearch = document.getElementById('mainSearchInput');
+    if (mainSearch) {
+        mainSearch.value = ''; // Borra el texto escrito
     }
 
     // Reset Sliders de Precio
