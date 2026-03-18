@@ -11,7 +11,7 @@
     {{-- Lista de marcas con scroll --}}
     <div class="marca-scroll-container">
         <ul class="marca-list" id="marcaList">
-            @foreach($marcas as $marca)
+            @foreach($marcas->where('autos_count', '>', 0) as $marca)
                 <li class="marca-item" data-marca="{{ strtolower($marca->nombre) }}">
                     <div class="marca-row">
                         <label class="marca-check-label">
