@@ -61,7 +61,7 @@
                 maxVal = MIN_PRECIO + STEP;
                 inputMax.value = maxVal;
             }
-            
+
             if (minVal > maxVal - STEP) {
                 minVal = Math.max(MIN_PRECIO, maxVal - STEP);
                 inputMin.value = minVal;
@@ -85,9 +85,9 @@
         inputMax.addEventListener('input', updateSlider);
 
         function applyPriceFilter() {
-            const form = document.getElementById('filterForm');
-            if (form) {
-                form.submit();
+            // CAMBIO: En lugar de form.submit(), llamamos a tu función global
+            if (typeof applyFilters === 'function') {
+                applyFilters();
             }
         }
 
@@ -98,7 +98,7 @@
         const params = new URLSearchParams(window.location.search);
         let minValue = MIN_PRECIO;
         let maxValue = MAX_PRECIO;
-        
+
         if (params.get('price_min')) {
             minValue = Math.max(MIN_PRECIO, Math.min(MAX_PRECIO, parseInt(params.get('price_min'))));
             inputMin.value = minValue;

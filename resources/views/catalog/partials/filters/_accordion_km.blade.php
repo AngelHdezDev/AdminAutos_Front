@@ -20,9 +20,10 @@
             <div class="km-slider-track">
                 <div class="km-slider-range" id="kmRange"></div>
             </div>
-            <input type="range" id="kmMin" name="km_min" class="km-thumb km-thumb-min" min="0" max="500000" value="0" step="1000">
-            <input type="range" id="kmMax" name="km_max" class="km-thumb km-thumb-max" min="0" max="500000" value="500000"
+            <input type="range" id="kmMin" name="km_min" class="km-thumb km-thumb-min" min="0" max="500000" value="0"
                 step="1000">
+            <input type="range" id="kmMax" name="km_max" class="km-thumb km-thumb-max" min="0" max="500000"
+                value="500000" step="1000">
         </div>
     </div>
 </div>
@@ -73,13 +74,11 @@
         inputMax.addEventListener('input', updateSlider);
 
         // Sustituye la función applyKmFilter de tu script por esta:
+        // Dentro de tu (function () { ... })()
         function applyKmFilter() {
-            const form = document.getElementById('filterForm');
-            if (form) {
-                // Asegúrate de que los inputs tengan el atributo 'name' para que el form los mande
-                inputMin.setAttribute('name', 'km_min');
-                inputMax.setAttribute('name', 'km_max');
-                form.submit();
+            // CAMBIO: En lugar de form.submit(), llamamos a tu función global de AJAX
+            if (typeof applyFilters === 'function') {
+                applyFilters();
             }
         }
 

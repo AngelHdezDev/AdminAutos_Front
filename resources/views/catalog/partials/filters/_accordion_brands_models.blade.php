@@ -55,42 +55,7 @@ function filterMarcas(query) {
 }
 
 // Aplica los filtros seleccionados (recarga con los parámetros)
-function applyFilters() {
-    // 1. Obtenemos el formulario lateral (marcas, precios, etc.)
-    const filterForm = document.getElementById('filterForm'); 
-    const formData = new FormData(filterForm);
 
-    // 2. OBTENEMOS EL BUSCADOR SUPERIOR
-    const mainSearch = document.getElementById('mainSearchInput');
-    if (mainSearch) {
-        // Agregamos el valor del buscador a los datos que se van a enviar
-        formData.set('search', mainSearch.value);
-    }
-
-    // 3. Convertimos todo a una URL string
-    const queryString = new URLSearchParams(formData).toString();
-
-    // 4. Actualizamos la URL en el navegador (para que no se pierdan al refrescar)
-    window.history.pushState({}, '', `${window.location.pathname}?${queryString}`);
-
-    // Efecto visual de carga
-    const container = document.getElementById('carsGridContainer');
-    container.style.opacity = '0.5';
-
-    // 5. Petición AJAX
-    fetch(`${window.location.pathname}?${queryString}`, {
-        headers: { "X-Requested-With": "XMLHttpRequest" }
-    })
-    .then(response => response.text())
-    .then(html => {
-        container.innerHTML = html;
-        container.style.opacity = '1';
-        
-        // Si tienes el scroll opcional, déjalo aquí
-        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    })
-    .catch(error => console.error('Error:', error));
-}
 
 // Al cargar la página, aseguramos que todas las marcas sean visibles
 document.addEventListener('DOMContentLoaded', function() {

@@ -17,6 +17,13 @@
 
         <main class="catalog-main">
             @include('catalog.partials._toolbar')
+            <div class="active-filters-container d-flex align-items-center gap-2 mb-3">
+                <div id="activeFiltersList" class="d-flex flex-wrap gap-2"></div>
+                <button id="btnResetFilters" onclick="clearAllFilters()" class="btn btn-link text-danger p-0"
+                    style="display:none; font-size: 13px;">
+                    Reiniciar filtros
+                </button>
+            </div>
             <div id="carsGridContainer">
                 @include('catalog.partials._cars_grid')
             </div>

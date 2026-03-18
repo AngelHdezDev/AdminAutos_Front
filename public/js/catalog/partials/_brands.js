@@ -41,9 +41,8 @@
             applyFilters();
         }
     };
-
     /* ---- Sincronizar estado visual del bar con los checkboxes del sidebar ---- */
-    function syncBarWithSidebar() {
+    window.syncBarWithSidebar = function () { // <--- Agregamos window.
         document.querySelectorAll('.marca-btn[data-id]').forEach(btn => {
             const id = btn.dataset.id;
             const checkbox = document.querySelector(`.marca-checkbox[value="${id}"]`);
@@ -51,7 +50,7 @@
                 btn.classList.toggle('active', checkbox.checked);
             }
         });
-    }
+    };
 
     /* ---- Escuchar cambios en checkboxes del sidebar ---- */
     document.querySelectorAll('.marca-checkbox').forEach(cb => {
