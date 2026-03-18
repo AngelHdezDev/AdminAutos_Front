@@ -16,13 +16,13 @@
                 <div class="sort-dropdown-label">Ordenar por</div>
 
                 <div class="sort-option {{ request('sort') == 'price_asc' ? 'active' : '' }}"
-                    onclick="applySort('price_asc')">Menor precio</div>
+                    onclick="selectSort(this, 'price_asc')">Menor precio</div>
 
                 <div class="sort-option {{ request('sort') == 'price_desc' ? 'active' : '' }}"
-                    onclick="applySort('price_desc')">Mayor precio</div>
+                    onclick="selectSort(this, 'price_desc')">Mayor precio</div>
 
                 <div class="sort-option {{ request('sort') == 'latest' || !request('sort') ? 'active' : '' }}"
-                    onclick="applySort('latest')">Más nuevos</div>
+                    onclick="selectSort(this, 'latest')">Más nuevos</div>
             </div>
         </div>
     </div>

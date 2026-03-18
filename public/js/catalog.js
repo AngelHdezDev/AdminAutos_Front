@@ -53,13 +53,27 @@ function selectSort(el, value) {
     document.querySelectorAll('.sort-option').forEach(o => o.classList.remove('active'));
     el.classList.add('active');
 
-    // Actualizamos el texto del botón
-    document.querySelector('.sort-btn').innerHTML = el.textContent.trim().substring(0, 16) + '... <i class="bi bi-chevron-down" style="font-size:0.75rem"></i>';
+    // 1. Obtenemos el texto limpio de la opción seleccionada
+    const text = el.textContent.trim();
+
+    // 2. Actualizamos el botón principal (sin cortar el texto a menos que sea muy largo)
+    const sortBtn = document.querySelector('.sort-btn');
+    if (sortBtn) {
+        sortBtn.innerHTML = `${text} <i class="bi bi-chevron-down" style="font-size:0.75rem"></i>`;
+    }
+
     document.getElementById('sortDropdown').classList.remove('open');
 
-    // Actualizamos el input hidden y disparamos el filtro
-    document.getElementById('hiddenSort').value = value;
-    applyFilters();
+    // 3. Actualizamos el input que viajará por AJAX
+    const hiddenInput = document.getElementById('hiddenSort');
+    if (hiddenInput) {
+        hiddenInput.value = value;
+    }
+
+    // 4. Disparamos la petición al servidor
+    if (typeof applyFilters === 'function') {
+        applyFilters();
+    }
 }
 
 /* ==========================================
@@ -95,7 +109,7 @@ function applyFilters() {
             renderActiveFilters();
 
             // Scroll suave al inicio de los resultados
-            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const rect = container.getBoundingClientRect();
         })
         .catch(error => console.error('Error Dalton Filters:', error));
 }
@@ -164,28 +178,28 @@ function renderActiveFilters() {
     const kmChanged = (kMin?.value > 0 || kMax?.value < 500000);
     if (resetBtn) resetBtn.style.display = (checkboxes.length > 0 || priceChanged || kmChanged || searchHasValue) ? 'inline-block' : 'none';
 
-    
+
 }
 
 function removeSingleFilter(name, val) {
     const cb = document.querySelector(`input[name="${name}"][value="${val}"]`);
-    
+
     if (cb) {
         cb.checked = false;
-        
+
         // 1. Limpiar visual de años si aplica
         if (name === 'years[]') {
             const pill = cb.closest('.year-pill');
             if (pill) pill.classList.remove('active');
         }
-        
+
         // 2. FORZAR SINCRONIZACIÓN DE LA BARRA SUPERIOR
         // Como el cambio es por código, el listener 'change' no se activa solo
         if (typeof syncBarWithSidebar === 'function') {
             syncBarWithSidebar();
         }
     }
-    
+
     applyFilters();
 }
 
@@ -256,6 +270,24 @@ function clearAllFilters() {
         kMin.dispatchEvent(new Event('input'));
         kMax.dispatchEvent(new Event('input'));
     }
+
+    const hiddenSort = document.getElementById('hiddenSort');
+    if (hiddenSort) {
+        hiddenSort.value = 'latest';
+    }
+
+    // 2. Resetear el texto del botón visualmente
+    const sortBtn = document.querySelector('.sort-btn');
+    if (sortBtn) {
+        sortBtn.innerHTML = `Más nuevos <i class="bi bi-chevron-down" style="font-size:0.75rem"></i>`;
+    }
+
+    document.querySelectorAll('.sort-option').forEach(o => {
+        o.classList.remove('active');
+        if (o.getAttribute('onclick')?.includes('latest')) {
+            o.classList.add('active');
+        }
+    });
 
     applyFilters();
 }
