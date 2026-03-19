@@ -125,9 +125,15 @@ class AutoController extends Controller
         try {
 
             $auto = Auto::with(['marca', 'imagenes', 'thumbnail'])->findOrFail($id);
-            $marca = $auto->marca; // Obtener la marca relacionada
-
-            return view('autos.autoDetail', compact('auto', 'marca'));
+            $marca = $auto->marca;
+            $autosSugeridos = Auto::active()
+                ->with(['marca', 'thumbnail']) 
+                ->where('id_auto', '!=', $id) 
+                ->inRandomOrder() 
+                ->limit(3) 
+                ->get();
+           
+            return view('autos.autoDetail', compact('auto', 'marca', 'autosSugeridos'));
 
         } catch (Exception $e) {
             \Log::error("Error al mostrar el auto ID {$id}: " . $e->getMessage());
