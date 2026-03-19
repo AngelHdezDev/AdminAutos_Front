@@ -12,7 +12,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 Route::get('/autos', [AutoController::class, 'index'])->name('autos.index');
 
-Route::get('/autos-detail', function () {
-    return view('autos.autoDetail');
-});
+// Usamos un nombre de ruta para referenciarlo fácilmente en la vista
+Route::get('/auto/{id}', [AutoController::class, 'show'])->name('autos.show');
+
+// Route::get('/autos-detail', function () {
+//     return view('autos.autoDetail');
+// });
 

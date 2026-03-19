@@ -118,4 +118,19 @@ class AutoController extends Controller
             ]);
         }
     }
+
+    public function show($id)
+    {
+        try {
+
+            $auto = Auto::with(['marca', 'imagenes', 'thumbnail'])->findOrFail($id);
+
+            return view('autos.autoDetail', compact('auto'));
+
+        } catch (Exception $e) {
+            \Log::error("Error al mostrar el auto ID {$id}: " . $e->getMessage());
+            return redirect()->route('autos.index')->with('error', 'No se pudo cargar el detalle del auto.');
+        }
+
+    }
 }
