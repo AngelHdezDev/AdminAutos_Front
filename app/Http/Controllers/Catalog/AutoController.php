@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Catalog;
 
 use App\Http\Controllers\Controller;
 use App\Models\Auto;
+use App\Models\Marca;
 use Illuminate\Support\Facades\Log;
 use Exception;
 use Illuminate\Http\Request;
-use App\Models\Marca;
+
 
 class AutoController extends Controller
 {
@@ -124,8 +125,9 @@ class AutoController extends Controller
         try {
 
             $auto = Auto::with(['marca', 'imagenes', 'thumbnail'])->findOrFail($id);
+            $marca = $auto->marca; // Obtener la marca relacionada
 
-            return view('autos.autoDetail', compact('auto'));
+            return view('autos.autoDetail', compact('auto', 'marca'));
 
         } catch (Exception $e) {
             \Log::error("Error al mostrar el auto ID {$id}: " . $e->getMessage());

@@ -371,8 +371,8 @@
     <div class="car-header">
         <div>
             <div class="brand-pill">
-                @if($auto->marca->logo)
-                    <img src="{{ asset('storage/' . $auto->marca->logo) }}" alt="{{ $auto->marca->nombre }}"
+                @if($auto->marca->imagen)
+                    <img src="{{ config('app.admin_storage') . $marca->imagen }}" alt="{{ $auto->marca->nombre }}"
                          onerror="this.style.display='none'">
                 @endif
                 <span>{{ $auto->marca->nombre }}</span>
