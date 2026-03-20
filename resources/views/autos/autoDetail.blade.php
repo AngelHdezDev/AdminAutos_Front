@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+
+@section('title', 'Autos - VMS')
+
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/autos-detail/autos-detail.css') }}">
 @endpush
@@ -9,6 +12,7 @@
     <body>
         <!-- ── NAVBAR ── -->
         @include('dashboard.partials._navbarTop')
+       <x-dashboard.navbar-filters />
 
         <!-- ── BREADCRUMB ── -->
         <div class="breadcrumb-bar">
@@ -326,4 +330,3 @@
         </script>
     </body>
 @endsection
-name: name: name: 
