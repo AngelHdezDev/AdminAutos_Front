@@ -8,15 +8,7 @@
             <path d="M7 21 C7 13 13 5 21 5" stroke="#e8001c" stroke-width="3" stroke-linecap="round" />
             <circle cx="21" cy="5" r="4" fill="#e8001c" />
         </svg>
-        <span class="logo-text">Dalton<span>Seminuevos</span></span>
-        <span
-            style="background:#e8001c;color:white;font-size:0.55rem;font-weight:800;border-radius:3px;padding:1px 4px;margin-left:2px;">.com</span>
+        <span class="logo-text">CarAdmin<span> C&C</span></span>
     </a>
 
-    <div class="navbar-top-actions">
-        <button class="btn-vender">Vender mi auto</button>
-        <button class="btn-comprar">Comprar un auto</button>
-        <div class="navbar-top-divider"></div>
-        <button class="btn-user"><i class="bi bi-person"></i></button>
-    </div>
 </nav>
