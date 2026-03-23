@@ -5,18 +5,18 @@
 
     <div class="fav-marcas-scroll mb-4">
         @foreach($marcas as $marca)
-            <button class="fav-marca-pill">
-                    <img src="{{ config('app.admin_storage') . $marca->imagen }}" alt="{{ $marca->nombre }}" width="20"
-                        height="20" class="fav-brand-logo"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+            <a href="{{ route('autos.index', ['marcas[]' => $marca->id_marca]) }}" class="fav-marca-pill"
+                style="text-decoration: none;">
+                <img src="{{ config('app.admin_storage') . $marca->imagen }}" alt="{{ $marca->nombre }}" width="20"
+                    height="20" class="fav-brand-logo" onerror="this.style.display='none';">
                 {{ $marca->nombre }}
-            </button>
+            </a>
         @endforeach
     </div>
 
     <div class="fav-cars-scroll">
         @foreach($autos as $auto)
-            <div class="fav-car-card">
+            <div class="fav-car-card" onclick="window.location.href='{{ route('autos.show', $auto->id_auto) }}'">
                 <div class="fav-car-img-container"
                     style="position: relative; background: #f8f9fa; height: 160px; overflow: hidden;">
                     <img class="fav-car-card-img"
@@ -33,11 +33,13 @@
 
                 <div class="fav-car-card-body">
                     <div class="fav-car-card-title">{{ $auto->marca->nombre }} {{ $auto->modelo }} {{ $auto->anio }}</div>
-                    <div class="fav-car-card-meta">{{ $auto->puertas }} PTS. | {{ number_format($auto->kilometraje) }} km</div>
+                    <div class="fav-car-card-meta">{{ $auto->puertas }} PTS. | {{ number_format($auto->kilometraje) }} km
+                    </div>
                     <div class="fav-car-card-price">${{ number_format($auto->precio, 2) }} <small>MXN</small></div>
 
                     @if($auto->precio_liquidacion)
-                        <span class="fav-badge-liquidacion">${{ number_format($auto->precio_liquidacion) }} precio de liquidación</span>
+                        <span class="fav-badge-liquidacion">${{ number_format($auto->precio_liquidacion) }} precio de
+                            liquidación</span>
                     @endif
 
                     <div class="fav-car-card-location">
