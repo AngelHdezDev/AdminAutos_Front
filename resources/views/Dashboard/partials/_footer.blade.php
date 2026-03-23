@@ -1,8 +1,8 @@
 <footer>
     <div style="color:white;font-weight:800;font-size:1.1rem;margin-bottom:20px;">
-        Dalton<span style="color:var(--dalton-red)">Seminuevos</span>
-        <span
-            style="background:var(--dalton-red);color:white;font-size:0.55rem;font-weight:800;border-radius:3px;padding:1px 4px;margin-left:3px;">.com</span>
+        CarAdmin<span style="color:var(--dalton-red)">C&C</span>
+        <!-- <span
+            style="background:var(--dalton-red);color:white;font-size:0.55rem;font-weight:800;border-radius:3px;padding:1px 4px;margin-left:3px;">.com</span> -->
     </div>
     <div class="footer-social">
         <a href="#"><i class="bi bi-instagram"></i></a>

@@ -6,15 +6,9 @@
     <div class="fav-marcas-scroll mb-4">
         @foreach($marcas as $marca)
             <button class="fav-marca-pill">
-                @if($marca->imagen)
                     <img src="{{ config('app.admin_storage') . $marca->imagen }}" alt="{{ $marca->nombre }}" width="20"
                         height="20" class="fav-brand-logo"
                         onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
-                    <i class="bi bi-image" style="display: none; font-size: 1.2rem; margin-right: 5px; color: #6c757d;"></i>
-                @else
-                    <i class="bi bi-image" style="font-size: 1.2rem; margin-right: 5px; color: #6c757d;"></i>
-                @endif
-
                 {{ $marca->nombre }}
             </button>
         @endforeach
