@@ -74,7 +74,29 @@
                 <div class="gallery-main">
                     <img id="mainImg"
                         src="{{ env('ADMIN_STORAGE_URL') . ($auto->thumbnail->imagen ?? $auto->imagenes->first()?->imagen) }}"
-                        alt="{{ $auto->marca->nombre }} {{ $auto->modelo }} {{ $auto->year }}" loading="eager">
+                        alt="{{ $auto->marca->nombre }} {{ $auto->modelo }} {{ $auto->year }}" loading="eager"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                    <div class="fav-placeholder-car" style="display: none; 
+               width: 100%; 
+               aspect-ratio: 16 / 9; 
+               min-height: 300px; 
+               max-height: 600px; 
+               flex-direction: column; 
+               justify-content: center; 
+               align-items: center; 
+               background-color: #f8f9fa;
+               border-radius: 12px;">
+
+                        <div class="placeholder-icon-circle"
+                            style="width: 80px; height: 80px; display: flex; justify-content: center; align-items: center; background: white; border-radius: 50%; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                            <i class="bi bi-image" style="font-size: 2.5rem; color: #adb5bd;"></i>
+                        </div>
+
+                        <span class="placeholder-text" style="color: #adb5bd; font-weight: 500; font-size: 1.1rem;">
+                            Imagen no disponible
+                        </span>
+                    </div>
                     <button class="gallery-btn gallery-btn-expand" onclick="openFsModal(currentIndex)">
                         <i class="bi bi-arrows-angle-expand"></i>
                     </button>
@@ -162,10 +184,9 @@
                                     {{-- Imagen del Auto (Thumbnail) --}}
                                     @if(isset($s->thumbnail->imagen))
                                         <img src="{{ env('ADMIN_STORAGE_URL') . $s->thumbnail->imagen }}"
-                                            alt="{{ $s->marca->nombre }} {{ $s->modelo }}" 
-                                            loading="lazy"
+                                            alt="{{ $s->marca->nombre }} {{ $s->modelo }}" loading="lazy"
                                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                            
+
                                         {{-- Este div nace oculto y solo se activa si la imagen de arriba falla (error 404) --}}
                                         <div class="fav-placeholder-car" style="display: none; height: 180px;">
                                             <div class="placeholder-icon-circle"><i class="bi bi-image"></i></div>
@@ -178,6 +199,7 @@
                                             <span class="placeholder-text">Imagen no disponible</span>
                                         </div>
                                     @endif
+
 
                                     <div class="fav-placeholder-car">
                                         <div class="placeholder-icon-circle">
