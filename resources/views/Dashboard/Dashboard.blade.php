@@ -26,9 +26,9 @@
     <!-- ===== TENEMOS TU MARCA FAVORITA ===== -->
     <x-dashboard.favorite-brands />
     <!-- ===== HERRAMIENTAS DE COMPRA ===== -->
-    @include('Dashboard.partials._herramientasSection')
+    <!-- @include('Dashboard.partials._herramientasSection') -->
     <!-- ===== REFERRAL BANNER ===== -->
-    @include('Dashboard.partials._referralBanner')
+    <!-- @include('Dashboard.partials._referralBanner') -->
     <!-- ===== NUESTRAS UBICACIONES ===== -->
     @include('Dashboard.partials._ubications')
     <!-- ===== TESTIMONIALES ===== -->
