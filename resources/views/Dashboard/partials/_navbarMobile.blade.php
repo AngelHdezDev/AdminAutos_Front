@@ -26,22 +26,31 @@
                                 <span>{{ $marca->nombre }}</span>
                                 <i class="bi bi-chevron-down"></i>
                             </div>
+
                             <div class="mobile-modelos-list">
-                                @foreach($marca->autos as $autoAgrupado)
-                                    <a
-                                        href="{{ route('dashboard', ['marca' => $marca->nombre, 'modelo' => $autoAgrupado->modelo]) }}">
-                                        {{ $autoAgrupado->modelo }} ({{ $autoAgrupado->total }})
-                                    </a>
+                                {{-- Integración de los modelos con su respectivo contador --}}
+                                @foreach($marca->autos->take(5) as $autoAgrupado)
+                                                        <a href="{{ route('autos.index', [
+                                        'marcas[]' => $marca->id_marca,
+                                        'modelos[]' => $autoAgrupado->modelo
+                                    ]) }}">
+                                                            {{ $autoAgrupado->modelo }}
+                                                            <span class="modelo-count" style="font-size: 0.8rem; opacity: 0.7;">
+                                                                ({{ $autoAgrupado->total }})
+                                                            </span>
+                                                        </a>
                                 @endforeach
-                                <a href="{{ route('dashboard', ['marca' => $marca->nombre]) }}"
-                                    style="color:var(--dalton-blue);font-weight:700;">
-                                    Ver todos →
+
+                                {{-- Enlace "Ver todos" ajustado a la ruta correcta --}}
+                                <a href="{{ route('autos.index', ['marcas[]' => $marca->id_marca]) }}"
+                                    style="color:var(--dalton-blue); font-weight:700; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 5px; padding-top: 10px;">
+                                    Ver todos <i class="bi bi-chevron-right"></i>
                                 </a>
                             </div>
                         </div>
                     @endforeach
                 </div>
-                <a href="{{ route('dashboard') }}" class="mobile-ver-todos">Ver todas las marcas</a>
+                <a href="{{ route('autos.index') }}" class="mobile-ver-todos">Ver todas las marcas</a>
             </div>
         </div>
 
