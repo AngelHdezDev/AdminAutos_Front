@@ -16,15 +16,25 @@
         <x-dashboard.navbar-filters />
 
         <!-- ── BREADCRUMB ── -->
-        <div class="breadcrumb-bar">
+        <nav class="breadcrumb-bar" aria-label="breadcrumb">
             <div class="breadcrumb-inner">
-                <a href="{{ route('dashboard') }}"><i class="bi bi-house"></i></a>
-                <span class="sep">/</span>
-                <a href="{{ route('dashboard', ['marcas[]' => $auto->marca->id_marca]) }}">{{ $auto->marca->nombre }}</a>
-                <span class="sep">/</span>
-                <span class="current">{{ $auto->marca->nombre }} {{ $auto->modelo }} {{ $auto->year }}</span>
+                <a href="{{ route('dashboard') }}" title="Inicio">
+                    <i class="bi bi-house-door"></i>
+                </a>
+
+                <i class="bi bi-chevron-right sep"></i>
+
+                <a href="{{ route('autos.index', ['marcas[]' => $auto->marca->id_marca]) }}">
+                    {{ $auto->marca->nombre }}
+                </a>
+
+                <i class="bi bi-chevron-right sep"></i>
+
+                <span class="current">
+                    {{ $auto->marca->nombre }} {{ $auto->modelo }} {{ $auto->year }}
+                </span>
             </div>
-        </div>
+        </nav>
 
         <!-- ── FULLSCREEN MODAL ── -->
         <div class="fs-modal" id="fsModal">
@@ -78,15 +88,15 @@
                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
 
                     <div class="fav-placeholder-car" style="display: none; 
-               width: 100%; 
-               aspect-ratio: 16 / 9; 
-               min-height: 300px; 
-               max-height: 600px; 
-               flex-direction: column; 
-               justify-content: center; 
-               align-items: center; 
-               background-color: #f8f9fa;
-               border-radius: 12px;">
+                   width: 100%; 
+                   aspect-ratio: 16 / 9; 
+                   min-height: 300px; 
+                   max-height: 600px; 
+                   flex-direction: column; 
+                   justify-content: center; 
+                   align-items: center; 
+                   background-color: #f8f9fa;
+                   border-radius: 12px;">
 
                         <div class="placeholder-icon-circle"
                             style="width: 80px; height: 80px; display: flex; justify-content: center; align-items: center; background: white; border-radius: 50%; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">

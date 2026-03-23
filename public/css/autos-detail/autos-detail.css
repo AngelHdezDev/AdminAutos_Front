@@ -26,39 +26,49 @@ body {
     background: var(--bg);
 }
 
-/* ── BREADCRUMB ── */
+/* ── BREADCRUMB REDISEÑADO ── */
 .breadcrumb-bar {
-    background: var(--dark);
-    padding: 8px 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    background: #ffffff; /* Fondo blanco para que no choque con las cards */
+    padding: 12px 0;
+    border-bottom: 1px solid #eeeeee; /* Línea muy fina de separación */
+    margin-bottom: 20px;
 }
 
 .breadcrumb-inner {
     max-width: 1280px;
     margin: 0 auto;
+    padding: 0 24px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.5);
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #888888; /* Gris suave para los links no activos */
 }
 
 .breadcrumb-inner a {
-    color: rgba(255, 255, 255, 0.5);
+    color: #888888;
     text-decoration: none;
-    transition: color 0.15s;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
 }
 
 .breadcrumb-inner a:hover {
-    color: white;
+    color: var(--blue); /* Color de acento de tu plataforma */
+}
+
+.breadcrumb-inner i.bi-house-door {
+    font-size: 1rem;
 }
 
 .breadcrumb-inner .sep {
-    color: rgba(255, 255, 255, 0.25);
+    color: #cccccc;
+    font-weight: 300;
 }
 
 .breadcrumb-inner .current {
-    color: rgba(255, 255, 255, 0.85);
+    color: #333333; /* Más oscuro para indicar dónde está el usuario */
+    font-weight: 600;
 }
 
 /* ── MAIN WRAPPER ── */
