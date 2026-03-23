@@ -33,9 +33,11 @@
 
         if (checkbox) {
             checkbox.checked = !checkbox.checked;
+            // Al cambiar el checkbox, el listener que ya tienes abajo
+            // (cb.addEventListener('change', syncBarWithSidebar)) se encargará
+            // de poner o quitar la clase 'active' correctamente.
+            checkbox.dispatchEvent(new Event('change'));
         }
-
-        btnElement.classList.toggle('active');
 
         if (typeof applyFilters === 'function') {
             applyFilters();

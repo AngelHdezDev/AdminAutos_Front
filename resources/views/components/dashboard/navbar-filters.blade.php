@@ -1,4 +1,3 @@
-
 {{-- ===== NAVBAR FILTERS ===== --}}
 <nav class="navbar-filters">
 
@@ -26,7 +25,6 @@
     {{-- Dropdown desktop --}}
     <div class="marca-dropdown" id="marcaDropdown">
 
-        {{-- Slider + flechas --}}
         <div class="marca-dropdown-inner">
 
             <button class="nav-arrow prev" id="prevBtn" onclick="moveSlider(-1)" disabled>
@@ -36,27 +34,32 @@
             <div class="slider-window">
                 <div class="slider-track" id="marcaSlider">
                     @foreach($marcas as $marca)
-                        <div class="marca-col">
-                            <div class="marca-col-header">
-                                <img src="{{ config('app.admin_storage') . $marca->imagen }}"
-                                     alt="{{ $marca->nombre }}"
-                                     onerror="this.style.display='none'">
-                                <span class="marca-col-name">{{ $marca->nombre }}</span>
-                            </div>
-                            <ul class="modelo-list">
-                                @foreach($marca->autos->take(5) as $autoAgrupado)
-                                    <li>
-                                        <a href="{{ route('dashboard', ['marca' => $marca->nombre, 'modelo' => $autoAgrupado->modelo]) }}">
-                                            {{ $autoAgrupado->modelo }}
-                                        </a>
-                                        <span class="modelo-count">({{ $autoAgrupado->total }})</span>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <a href="{{ route('dashboard', ['marca' => $marca->nombre]) }}" class="ver-todos-modelo">
-                                Ver todos <i class="bi bi-chevron-right" style="font-size:0.7rem"></i>
-                            </a>
-                        </div>
+                                        <div class="marca-col">
+                                            <div class="marca-col-header">
+                                                <img src="{{ config('app.admin_storage') . $marca->imagen }}" alt="{{ $marca->nombre }}"
+                                                    onerror="this.style.display='none'">
+                                                <span class="marca-col-name">{{ $marca->nombre }}</span>
+                                            </div>
+                                            <ul class="modelo-list">
+                                                @foreach($marca->autos->take(5) as $autoAgrupado)
+                                                                        <li>
+                                                                            <a href="{{ route('autos.index', [
+                                                        'marcas[]' => $marca->id_marca,
+                                                        'modelos[]' => $autoAgrupado->modelo
+                                                    ]) }}">
+                                                                                {{ $autoAgrupado->modelo }}
+                                                                            </a>
+                                                                            <span class="modelo-count">({{ $autoAgrupado->total }})</span>
+                                                                        </li>
+                                                @endforeach
+                                            </ul>
+                                            {{-- Enlace "Ver todos" solo con filtro de marca --}}
+                                            <a href="{{ route('autos.index', [
+                            'marcas[]' => $marca->id_marca
+                        ]) }}" class="ver-todos-modelo">
+                                                Ver todos <i class="bi bi-chevron-right"></i>
+                                            </a>
+                                        </div>
                     @endforeach
                 </div>
             </div>
@@ -67,7 +70,6 @@
 
         </div>
 
-        {{-- Paginación pegada al borde inferior --}}
         <div class="slider-pagination" id="sliderPagination"></div>
 
     </div>
@@ -76,7 +78,3 @@
 
 {{-- Panel móvil + backdrops --}}
 @include('Dashboard.partials._navbarMobile')
-
-
-
-

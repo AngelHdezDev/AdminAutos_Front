@@ -183,7 +183,7 @@ function renderActiveFilters() {
 
 function removeSingleFilter(name, val) {
     const cb = document.querySelector(`input[name="${name}"][value="${val}"]`);
-
+    
     if (cb) {
         cb.checked = false;
 

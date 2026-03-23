@@ -15,6 +15,16 @@ class AutoController extends Controller
 
     public function index(Request $request)
     {
+        if (!$request->has('price_min') && !$request->ajax()) {
+            return redirect()->route('autos.index', array_merge([
+                'sort' => 'latest',
+                'price_min' => 0,
+                'price_max' => 3500000,
+                'km_min' => 0,
+                'km_max' => 500000,
+                'search' => '',
+            ], $request->all()));
+        }
         // 1. OBTENER LAS MARCAS
         // Quitamos ->with('modelos') porque esa relación no existe en tu modelo Marca
         $marcas = Marca::active()
@@ -127,12 +137,12 @@ class AutoController extends Controller
             $auto = Auto::with(['marca', 'imagenes', 'thumbnail'])->findOrFail($id);
             $marca = $auto->marca;
             $autosSugeridos = Auto::active()
-                ->with(['marca', 'thumbnail']) 
-                ->where('id_auto', '!=', $id) 
-                ->inRandomOrder() 
-                ->limit(3) 
+                ->with(['marca', 'thumbnail'])
+                ->where('id_auto', '!=', $id)
+                ->inRandomOrder()
+                ->limit(3)
                 ->get();
-           
+
             return view('autos.autoDetail', compact('auto', 'marca', 'autosSugeridos'));
 
         } catch (Exception $e) {
