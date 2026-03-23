@@ -9,7 +9,6 @@
     </div>
 
     <div class="mobile-filters-content">
-
         {{-- Marca y modelo --}}
         <div class="mobile-filter-group">
             <div class="mobile-filter-group-header" onclick="toggleMobileSubmenu(this)">
@@ -108,23 +107,7 @@
             </div>
         </div>
 
-        {{-- Ubicación --}}
-        <div class="mobile-filter-group">
-            <div class="mobile-filter-group-header" onclick="toggleMobileSubmenu(this)">
-                <span>Ubicación</span>
-                <i class="bi bi-chevron-down"></i>
-            </div>
-            <div class="mobile-filter-submenu">
-                <select class="mobile-select">
-                    <option>Todas las ubicaciones</option>
-                    <option>Ciudad de México</option>
-                    <option>Monterrey</option>
-                    <option>Guadalajara</option>
-                    <option>Puebla</option>
-                    <option>Querétaro</option>
-                </select>
-            </div>
-        </div>
+        
 
     </div>
 

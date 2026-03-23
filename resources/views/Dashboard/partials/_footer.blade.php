@@ -75,11 +75,11 @@
             <ul class="footer-links mb-3">
                 <li><a href="#">Aviso de privacidad</a></li>
                 <li><a href="#">Términos y condiciones</a></li>
-                <li><a href="#">Garantía Dalton</a></li>
+                <li><a href="#">Garantía </a></li>
             </ul>
             <div class="footer-col-title">Contáctanos</div>
             <ul class="footer-links">
-                <li><a href="#">seminuevos@dalton.com.mx</a></li>
+                <li><a href="#">seminuevos.com.mx</a></li>
                 <li><a href="#">Atención al cliente</a></li>
                 <li><a href="#">Mapa del sitio</a></li>
             </ul>
@@ -88,45 +88,45 @@
             <div class="footer-col-title">Ubicaciones</div>
             <strong style="color:white;font-size:0.85rem">CDMX</strong>
             <ul class="footer-links mt-1 mb-3">
-                <li><a href="#">Dalton Seminuevos Copilco</a></li>
-                <li><a href="#">Dalton Seminuevos Polanco</a></li>
-                <li><a href="#">Dalton Seminuevos Mariano Escobedo</a></li>
-                <li><a href="#">Dalton Seminuevos Rio San Joaquín</a></li>
+                <li><a href="#"> Seminuevos Copilco</a></li>
+                <li><a href="#"> Seminuevos Polanco</a></li>
+                <li><a href="#"> Seminuevos Mariano Escobedo</a></li>
+                <li><a href="#"> Seminuevos Rio San Joaquín</a></li>
             </ul>
             <strong style="color:white;font-size:0.85rem">Colima</strong>
             <ul class="footer-links mt-1 mb-3">
-                <li><a href="#">Dalton Seminuevos Colima</a></li>
+                <li><a href="#"> Seminuevos Colima</a></li>
             </ul>
             <strong style="color:white;font-size:0.85rem">Guadalajara</strong>
             <ul class="footer-links mt-1">
-                <li><a href="#">Dalton Seminuevos La Calma</a></li>
-                <li><a href="#">Dalton Seminuevos López Mateos</a></li>
-                <li><a href="#">Dalton Seminuevos Magno</a></li>
-                <li><a href="#">Dalton Seminuevos Niños Heroes</a></li>
-                <li><a href="#">Dalton Seminuevos Colomos Country</a></li>
-                <li><a href="#">Dalton Seminuevos GAEN</a></li>
-                <li><a href="#">Dalton Seminuevos Galerías</a></li>
-                <li><a href="#">Dalton Seminuevos Patria</a></li>
+                <li><a href="#"> Seminuevos La Calma</a></li>
+                <li><a href="#"> Seminuevos López Mateos</a></li>
+                <li><a href="#"> Seminuevos Magno</a></li>
+                <li><a href="#"> Seminuevos Niños Heroes</a></li>
+                <li><a href="#"> Seminuevos Colomos Country</a></li>
+                <li><a href="#"> Seminuevos GAEN</a></li>
+                <li><a href="#"> Seminuevos Galerías</a></li>
+                <li><a href="#"> Seminuevos Patria</a></li>
             </ul>
         </div>
         <div class="col-md-3">
             <div class="footer-col-title">&nbsp;</div>
             <strong style="color:white;font-size:0.85rem">San Luis Potosí</strong>
             <ul class="footer-links mt-1 mb-3">
-                <li><a href="#">Dalton Seminuevos Carretera 57</a></li>
-                <li><a href="#">Dalton Seminuevos Lomas</a></li>
+                <li><a href="#"> Seminuevos Carretera 57</a></li>
+                <li><a href="#"> Seminuevos Lomas</a></li>
             </ul>
             <strong style="color:white;font-size:0.85rem">Tepic, Nayarit</strong>
             <ul class="footer-links mt-1 mb-3">
-                <li><a href="#">Dalton Seminuevos Jacars</a></li>
+                <li><a href="#"> Seminuevos Jacars</a></li>
             </ul>
             <strong style="color:white;font-size:0.85rem">León, Guanajuato</strong>
             <ul class="footer-links mt-1">
-                <li><a href="#">Dalton Seminuevos León</a></li>
+                <li><a href="#"> Seminuevos León</a></li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        © {{ date('Y') }} DaltonSeminuevos. Todos los derechos reservados.
+        © {{ date('Y') }} Seminuevos. Todos los derechos reservados.
     </div>
 </footer>

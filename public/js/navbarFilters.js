@@ -100,6 +100,8 @@ function toggleMarcaDropdown(btn) {
     }
 }
 
+
+
 function closeDropdown() {
     const dropdown = document.getElementById('marcaDropdown');
     const backdrop = document.getElementById('dropdownBackdrop');

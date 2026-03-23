@@ -51,6 +51,151 @@
     color: var(--dalton-text);
     flex-shrink: 0;
 }
+/* ── Dropdown contenedor ── */
+.año-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 20px;
+    z-index: 999;
+    min-width: 340px;
+    border: 1px solid #f0f0f0;
+}
+.año-dropdown.open { display: block; }
+ 
+/* ── Grid 3 columnas ── */
+.year-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+ 
+/* ── Pills de año ── */
+.year-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 8px;
+    border-radius: 50px;
+    background: #f3f4f6;
+    color: #111827;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: 'Manrope', sans-serif;
+    transition: all 0.15s;
+    border: 1.5px solid transparent;
+}
+.year-pill:hover {
+    background: #eff6ff;
+    border-color: #1a5ce5;
+    color: #1a5ce5;
+}
+.year-pill.active {
+    background: #1a5ce5;
+    color: white;
+    border-color: #1a5ce5;
+}
+ 
+/* ── Ver todos ── */
+.year-view-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 8px;
+    border-radius: 50px;
+    color: #1a5ce5;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    font-family: 'Manrope', sans-serif;
+    transition: opacity 0.15s;
+}
+.year-view-all:hover { opacity: 0.75; }
+.year-view-all i { font-size: 0.75rem; }
+
+/* ── Contenedor dropdown ── */
+.precio-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    padding: 20px 22px 16px;
+    z-index: 999;
+    min-width: 500px;
+    border: 1px solid #f0f0f0;
+}
+.precio-dropdown.open { display: block; }
+ 
+/* ── Label superior ── */
+.precio-dropdown-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #6b7280;
+    margin-bottom: 14px;
+    font-family: 'Manrope', sans-serif;
+}
+ 
+/* ── Grid 3 columnas ── */
+.precio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+}
+ 
+/* ── Pills de rango ── */
+.precio-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 8px;
+    border-radius: 50px;
+    background: #f3f4f6;
+    color: #111827;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: 'Manrope', sans-serif;
+    transition: all 0.15s;
+    border: 1.5px solid transparent;
+    white-space: nowrap;
+    text-align: center;
+}
+.precio-pill:hover {
+    background: #eff6ff;
+    border-color: #1a5ce5;
+    color: #1a5ce5;
+}
+.precio-pill.active {
+    background: #1a5ce5;
+    color: white;
+    border-color: #1a5ce5;
+}
+ 
+/* ── Ver todos ── */
+.precio-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #1a5ce5;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    font-family: 'Manrope', sans-serif;
+    transition: opacity 0.15s;
+    padding: 2px 0;
+}
+.precio-view-all:hover { opacity: 0.75; }
+.precio-view-all i { font-size: 0.75rem; }
 
 /* ===== DROPDOWN ===== */
 .marca-dropdown {
@@ -83,6 +228,8 @@
     align-items: center;
     padding: 28px 56px;
 }
+
+
 
 .slider-window {
     width: 100%;
