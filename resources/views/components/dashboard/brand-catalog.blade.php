@@ -3,15 +3,17 @@
 
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-3">
         @foreach($marcas as $marca)
-            <div class="col">
-                <a href="{{ route('dashboard', ['marca' => $marca->nombre]) }}" class="brand-catalog-link">
-                    <img src="{{ config('app.admin_storage') . $marca->imagen }}"
-                         alt="{{ $marca->nombre }}"
-                         onerror="this.style.visibility='hidden'">
-                    <span class="brand-name">{{ $marca->nombre }}</span>
-                    <span class="brand-count">({{ $marca->autos_count }})</span>
-                </a>
-            </div>
+                <div class="col">
+                    <a href="{{ route('autos.index', [
+                'marcas[]' => $marca->id_marca
+            ]) }}" class="brand-catalog-link">
+
+                        <img src="{{ config('app.admin_storage') . $marca->imagen }}" alt="{{ $marca->nombre }}"
+                            onerror="this.style.visibility='hidden'">
+                        <span class="brand-name">{{ $marca->nombre }}</span>
+                        <span class="brand-count">({{ $marca->autos_count }})</span>
+                    </a>
+                </div>
         @endforeach
     </div>
 </section>
