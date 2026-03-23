@@ -245,38 +245,57 @@ function clearSearchInput() {
 
 // Actualiza tu clearAllFilters para que también limpie los KM
 function clearAllFilters() {
+    console.log("Iniciando limpieza total de filtros...");
     const form = document.getElementById('filterForm');
-    if (form) form.reset();
+    
+    // 1. En lugar de solo reset(), desmarcamos manualmente para asegurar el estado
+    if (form) {
+        form.reset();
+        // Forzamos que todos los checkboxes de marcas se vean desmarcados
+        form.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+        });
+    }
 
-    // Limpiar visual de años
+    // 2. Limpieza de URL (FUNDAMENTAL para quitar el ?marca=Bugatti)
+    // Esto evita que al recargar el AJAX, el controlador vuelva a leer el fantasma de la URL
+    const url = new URL(window.location.href);
+    url.search = ''; // Borra todos los parámetros (?...)
+    window.history.replaceState({}, '', url);
+
+    // 3. Limpiar visual de años
     document.querySelectorAll('.year-pill').forEach(pill => pill.classList.remove('active'));
 
+    // 4. Sincronizar barra superior (esto apagará los botones azules de arriba)
     if (typeof syncBarWithSidebar === 'function') {
         syncBarWithSidebar();
     }
 
+    // 5. Limpiar búsqueda de texto
     const mainSearch = document.getElementById('mainSearchInput');
     if (mainSearch) {
-        mainSearch.value = ''; // Borra el texto escrito
+        mainSearch.value = ''; 
     }
 
-    // Reset Sliders de Precio
-    resetPriceSlider(); // Reutilizamos la función anterior
-
-    // Reset Sliders de KM
+    // 6. Reset Sliders (Precio y KM)
+    if (typeof resetPriceSlider === 'function') {
+        resetPriceSlider();
+    }
+    
     const kMin = document.getElementById('kmMin'), kMax = document.getElementById('kmMax');
     if (kMin && kMax) {
-        kMin.value = 0; kMax.value = 500000;
+        kMin.value = 0; 
+        kMax.value = 500000;
         kMin.dispatchEvent(new Event('input'));
         kMax.dispatchEvent(new Event('input'));
     }
 
+    // 7. Reset Sort (Ordenamiento)
     const hiddenSort = document.getElementById('hiddenSort');
     if (hiddenSort) {
         hiddenSort.value = 'latest';
     }
 
-    // 2. Resetear el texto del botón visualmente
     const sortBtn = document.querySelector('.sort-btn');
     if (sortBtn) {
         sortBtn.innerHTML = `Más nuevos <i class="bi bi-chevron-down" style="font-size:0.75rem"></i>`;
@@ -289,6 +308,7 @@ function clearAllFilters() {
         }
     });
 
+    console.log("Filtros reseteados. Aplicando cambios...");
     applyFilters();
 }
 
