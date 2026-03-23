@@ -26,89 +26,6 @@ body {
     background: var(--bg);
 }
 
-/* ── NAVBAR ── */
-.navbar-top {
-    background: var(--dark);
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    height: var(--navbar-h);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-}
-
-.logo-text {
-    color: white;
-    font-weight: 800;
-    font-size: 1.1rem;
-}
-
-.logo-text span {
-    color: var(--red);
-}
-
-.logo-dot {
-    background: var(--red);
-    color: white;
-    font-size: 0.55rem;
-    font-weight: 800;
-    border-radius: 3px;
-    padding: 1px 4px;
-}
-
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.btn-vender {
-    background: transparent;
-    border: 1.5px solid rgba(255, 255, 255, 0.4);
-    color: white;
-    border-radius: 50px;
-    padding: 6px 16px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Manrope', sans-serif;
-}
-
-.btn-comprar {
-    background: white;
-    border: none;
-    color: var(--dark);
-    border-radius: 50px;
-    padding: 6px 16px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: 'Manrope', sans-serif;
-}
-
-.btn-user {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 1.25rem;
-    cursor: pointer;
-}
-
-.nav-divider {
-    width: 1px;
-    height: 24px;
-    background: rgba(255, 255, 255, 0.2);
-}
-
 /* ── BREADCRUMB ── */
 .breadcrumb-bar {
     background: var(--dark);
@@ -724,6 +641,42 @@ body {
     color: var(--orange);
     font-weight: 700;
     margin-top: 6px;
+}
+
+.fav-placeholder-car {
+    display: none; /* Se activa por JS */
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #f3f4f6; /* Un gris sutil que no llega a ser blanco */
+    border-radius: inherit; /* Sigue la forma del contenedor padre */
+    gap: 12px;
+}
+
+.placeholder-icon-circle {
+    width: 64px;
+    height: 64px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    color: var(--muted);
+}
+
+.placeholder-icon-circle i {
+    font-size: 2rem;
+    opacity: 0.6;
+}
+
+.placeholder-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: -0.01em;
 }
 
 /* ── STICKY BOTTOM BAR ── */

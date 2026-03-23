@@ -9,10 +9,11 @@
 
 
 @section('content')
+
     <body>
         <!-- ── NAVBAR ── -->
         @include('dashboard.partials._navbarTop')
-       <x-dashboard.navbar-filters />
+        <x-dashboard.navbar-filters />
 
         <!-- ── BREADCRUMB ── -->
         <div class="breadcrumb-bar">
@@ -159,9 +160,31 @@
                                     onclick="window.location.href='{{ route('autos.show', $s->id_auto) }}'"
                                     style="cursor: pointer;">
                                     {{-- Imagen del Auto (Thumbnail) --}}
-                                    <img src="{{ env('ADMIN_STORAGE_URL') . ($s->thumbnail->imagen ?? 'default-car.jpg') }}"
-                                        alt="{{ $s->marca->nombre }} {{ $s->modelo }}" loading="lazy"
-                                        onerror="this.src='/path/to/placeholder.png'">
+                                    @if(isset($s->thumbnail->imagen))
+                                        <img src="{{ env('ADMIN_STORAGE_URL') . $s->thumbnail->imagen }}"
+                                            alt="{{ $s->marca->nombre }} {{ $s->modelo }}" 
+                                            loading="lazy"
+                                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                            
+                                        {{-- Este div nace oculto y solo se activa si la imagen de arriba falla (error 404) --}}
+                                        <div class="fav-placeholder-car" style="display: none; height: 180px;">
+                                            <div class="placeholder-icon-circle"><i class="bi bi-image"></i></div>
+                                            <span class="placeholder-text">Imagen no disponible</span>
+                                        </div>
+                                    @else
+                                        {{-- Si no hay imagen en BD, mostramos el placeholder de una vez --}}
+                                        <div class="fav-placeholder-car" style="display: flex; height: 180px;">
+                                            <div class="placeholder-icon-circle"><i class="bi bi-image"></i></div>
+                                            <span class="placeholder-text">Imagen no disponible</span>
+                                        </div>
+                                    @endif
+
+                                    <div class="fav-placeholder-car">
+                                        <div class="placeholder-icon-circle">
+                                            <i class="bi bi-image"></i>
+                                        </div>
+                                        <span class="placeholder-text">Imagen no disponible</span>
+                                    </div>
 
                                     <div class="similar-card-body">
                                         <div class="similar-card-header">
