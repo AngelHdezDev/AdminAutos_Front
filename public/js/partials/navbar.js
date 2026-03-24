@@ -102,6 +102,7 @@ function toggleMarcaDropdown(btn) {
 
 function toggleAñoDropdown(btn) {
     const dropdown = document.getElementById('añoDropdown');
+    const backdrop = document.getElementById('dropdownBackdrop');
     const isOpen = dropdown.classList.contains('open');
 
     // Cerramos otros
@@ -109,19 +110,31 @@ function toggleAñoDropdown(btn) {
 
     if (!isOpen) {
         dropdown.classList.add('open');
+        backdrop.classList.add('open');
         btn.classList.add('active');
-        // Cambiar icono a flecha arriba
         const icon = btn.querySelector('i');
-        if (icon) icon.className = 'bi bi-chevron-up';
+        if (icon) { icon.className = 'bi bi-chevron-up'; icon.style.fontSize = '0.7rem'; }
     }
 }
 
 function togglePrecioDropdown() {
-    document.getElementById('precioDropdown').classList.toggle('open');
-    // Cerrar el de año si está abierto
-    document.getElementById('añoDropdown')?.classList.remove('open');
-}
+    const dropdown = document.getElementById('añoDropdown');
+    const backdrop = document.getElementById('dropdownBackdrop');
+    const isOpen = dropdown.classList.contains('open');
+
+     // Cerramos otros
+    closeDropdown();
+
+    if (!isOpen) {
+        dropdown.classList.add('open');
+        backdrop.classList.add('open');
+        btn.classList.add('active');
+        const icon = btn.querySelector('i');
+        if (icon) { icon.className = 'bi bi-chevron-up'; icon.style.fontSize = '0.7rem'; }
+    }
     
+}
+
 function closeDropdown() {
     const dropdowns = document.querySelectorAll('.marca-dropdown');
     const backdrop = document.getElementById('dropdownBackdrop');
@@ -200,18 +213,3 @@ document.addEventListener('DOMContentLoaded', () => {
     if (track) buildPagination(Math.ceil(track.children.length / 6));
 });
 
-
-document.addEventListener('click', e => {
-    // 1. Obtenemos los dropdowns y los botones que los activan
-    const marcaDropdown = document.getElementById('marcaDropdown');
-    const añoDropdown = document.getElementById('añoDropdown');
-    const isFilterLink = e.target.closest('.filter-link');
-    
-    // 2. Si el clic NO fue en un botón de filtro Y NO fue dentro de un dropdown abierto
-    const clickedInsideMarca = marcaDropdown && marcaDropdown.contains(e.target);
-    const clickedInsideAño = añoDropdown && añoDropdown.contains(e.target);
-
-    if (!isFilterLink && !clickedInsideMarca && !clickedInsideAño) {
-        closeDropdown();
-    }
-});

@@ -76,15 +76,27 @@
                 <i class="bi bi-chevron-down"></i>
             </div>
             <div class="mobile-filter-submenu">
-                <label class="mobile-radio"><input type="radio" name="year"> 2024</label>
-                <label class="mobile-radio"><input type="radio" name="year"> 2023</label>
-                <label class="mobile-radio"><input type="radio" name="year"> 2022</label>
-                <label class="mobile-radio"><input type="radio" name="year"> 2021</label>
-                <label class="mobile-radio"><input type="radio" name="year"> 2020</label>
-                <label class="mobile-radio"><input type="radio" name="year"> 2019</label>
+                @php
+                    $currentYear = date('Y');
+                    // Generamos el rango de años dinámicamente como en el desktop
+                    $years = range($currentYear, $currentYear - 10);
+                @endphp
+
+                @foreach($years as $year)
+                    <label class="mobile-radio">
+                        <input type="radio" name="anios[]" value="{{ $year }}"
+                            onchange="window.location.href='{{ route('autos.index') }}?years[]={{ $year }}'">
+                        {{ $year }}
+                    </label>
+                @endforeach
+
+                {{-- Opción para restablecer o ver todos --}}
+                <a href="{{ route('autos.index') }}"
+                    style="display: block; padding: 10px 0; color: var(--blue); font-weight: 600; text-decoration: none; font-size: 0.9rem;">
+                    Ver todos <i class="bi bi-chevron-right"></i>
+                </a>
             </div>
         </div>
-
         {{-- Precio --}}
         <div class="mobile-filter-group">
             <div class="mobile-filter-group-header" onclick="toggleMobileSubmenu(this)">
@@ -93,29 +105,41 @@
             </div>
             <div class="mobile-filter-submenu">
                 <div class="mobile-price-range">
-                    <input type="range" min="0" max="1000000" step="10000" value="500000">
-                    <div class="mobile-price-inputs">
-                        <input type="number" placeholder="Mín" value="0">
-                        <input type="number" placeholder="Máx" value="1000000">
-                    </div>
-                    <div class="mobile-price-presets">
-                        <button class="price-preset">$0 - $200k</button>
-                        <button class="price-preset">$200k - $400k</button>
-                        <button class="price-preset">$400k - $600k</button>
+                    {{-- Inputs manuales existentes --}}
+                    {{-- Presets dinámicos con la lógica de escritorio --}}
+                    <div class="mobile-price-presets"
+                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px;">
+                        @php
+                            $rangos = [
+                                ['min' => 100000, 'max' => 200000, 'label' => '$100k - 200k'],
+                                ['min' => 200000, 'max' => 300000, 'label' => '$200k - 300k'],
+                                ['min' => 300000, 'max' => 400000, 'label' => '$300k - 400k'],
+                                ['min' => 400000, 'max' => 500000, 'label' => '$400k - 500k'],
+                                ['min' => 500000, 'max' => 600000, 'label' => '$500k - 600k'],
+                                ['min' => 1000000, 'max' => 9999999, 'label' => '$1M+'],
+                            ];
+                        @endphp
+
+                        @foreach($rangos as $rango)
+                            <button type="button" class="price-preset"
+                                onclick="window.location.href='{{ route('autos.index', ['price_min' => $rango['min'], 'price_max' => $rango['max']]) }}'"
+                                style="padding: 8px; font-size: 0.8rem; border-radius: 8px; border: 1px solid #eee; background: #fff;">
+                                {{ $rango['label'] }}
+                            </button>
+                        @endforeach
                     </div>
                 </div>
+
+                {{-- Enlace Ver todos --}}
+                <a href="{{ route('autos.index') }}"
+                    style="display: block; padding: 15px 0 5px; color: var(--blue); font-weight: 600; text-decoration: none; font-size: 0.9rem;">
+                    Ver todos los precios <i class="bi bi-chevron-right"></i>
+                </a>
             </div>
         </div>
 
-        
 
     </div>
-
-    <div class="mobile-filters-footer">
-        <button class="mobile-btn mobile-btn-outline" onclick="clearMobileFilters()">Limpiar</button>
-        <button class="mobile-btn mobile-btn-primary" onclick="applyMobileFilters()">Aplicar</button>
-    </div>
-
 </div>
 
 {{-- Backdrops --}}
