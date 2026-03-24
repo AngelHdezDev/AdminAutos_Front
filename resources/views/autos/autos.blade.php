@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-    @include('dashboard.partials._navbarTop')
+    @include('Dashboard.partials._navbarTop')
     <x-dashboard.navbar-filters />
     @include('catalog.partials._search_bar')
     @include('catalog.partials._brands')
