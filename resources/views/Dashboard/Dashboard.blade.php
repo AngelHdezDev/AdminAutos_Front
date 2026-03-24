@@ -8,7 +8,7 @@
 
 @section('content')
     <!-- ===== TOP NAVBAR ===== -->
-    @include('dashboard.partials._navbarTop')
+    @include('Dashboard.partials._navbarTop')
     <!-- ===== NAVBAR Filter ===== -->
     <x-dashboard.navbar-filters />
 
