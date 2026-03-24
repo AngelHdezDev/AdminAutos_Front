@@ -17,7 +17,6 @@
         </a>
     </div>
 
-    <span class="referral-text">¡Refiere a tus amigos y gana $5,000!</span>
 
     {{-- Dropdown desktop --}}
     <div class="marca-dropdown" id="marcaDropdown">

@@ -12,7 +12,7 @@
 
     <body>
         <!-- ── NAVBAR ── -->
-        @include('dashboard.partials._navbarTop')
+        @include('Dashboard.partials._navbarTop')
         <x-dashboard.navbar-filters />
 
         <!-- ── BREADCRUMB ── -->
